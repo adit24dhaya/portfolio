@@ -1,7 +1,8 @@
 'use client'
 
 import { useEffect, useMemo, useState } from 'react'
-import { motion } from 'framer-motion'
+import { motion, useScroll, useSpring } from 'framer-motion'
+import Image from 'next/image'
 import heroImage from '../src/assets/hero.png'
 
 const GITHUB_USERNAME = 'adit24dhaya'
@@ -12,6 +13,8 @@ export default function Page() {
   const [activeRepos, setActiveRepos] = useState([])
   const [activityLoading, setActivityLoading] = useState(true)
   const [activityError, setActivityError] = useState('')
+  const { scrollYProgress } = useScroll()
+  const scaleX = useSpring(scrollYProgress, { stiffness: 120, damping: 24, restDelta: 0.001 })
 
   const projects = [
     {
@@ -20,7 +23,7 @@ export default function Page() {
         'Built a web application to classify food images with Hugging Face inference, including upload handling and confidence-based prediction output.',
       tech: 'Flask, Hugging Face API, JavaScript',
       github: 'https://github.com/adit24dhaya/Detect---Not-Hot-Dogs-with-hugging-face-API',
-      accent: 'bg-[#0071e3]',
+      accent: 'bg-gradient-to-r from-[#0071e3] to-[#7b61ff]',
     },
     {
       title: 'Caffinder',
@@ -28,7 +31,7 @@ export default function Page() {
         'Created a cafe discovery app with geolocation, Google Maps integration, and a dynamic UI to improve nearby place discovery.',
       tech: 'JavaScript, Google Maps, Places API',
       github: 'https://github.com/adit24dhaya/caffinder',
-      accent: 'bg-[#34c759]',
+      accent: 'bg-gradient-to-r from-[#2f80ed] to-[#6fc3ff]',
     },
     {
       title: 'CSUF Advising System',
@@ -36,7 +39,7 @@ export default function Page() {
         'Designed an advising-focused academic support platform to streamline course guidance workflows and improve student-facing usability.',
       tech: 'React, Tailwind CSS, Firebase',
       github: 'https://github.com/adit24dhaya/CSUF-Advising-System',
-      accent: 'bg-[#ff9f0a]',
+      accent: 'bg-gradient-to-r from-[#5e8cff] to-[#af52de]',
     },
     {
       title: 'Voice Assistance',
@@ -44,7 +47,7 @@ export default function Page() {
         'Built a voice-driven assistant project focused on speech input workflows and practical task automation features.',
       tech: 'Python, NLP, Speech Processing',
       github: 'https://github.com/adit24dhaya/Voice-assitance',
-      accent: 'bg-[#af52de]',
+      accent: 'bg-gradient-to-r from-[#0071e3] to-[#b58cff]',
     },
   ]
 
@@ -94,9 +97,42 @@ export default function Page() {
     show: { opacity: 1, y: 0, transition: { duration: 0.55, ease: 'easeOut' } },
   }
 
+  const staggerVariants = {
+    hidden: {},
+    show: {
+      transition: {
+        staggerChildren: 0.08,
+        delayChildren: 0.04,
+      },
+    },
+  }
+
+  const itemVariants = {
+    hidden: { opacity: 0, y: 18 },
+    show: { opacity: 1, y: 0, transition: { duration: 0.55, ease: 'easeOut' } },
+  }
+
+  const cardVariants = {
+    hidden: { opacity: 0, y: 22, scale: 0.98 },
+    show: { opacity: 1, y: 0, scale: 1, transition: { duration: 0.5, ease: 'easeOut' } },
+  }
+
+  const formatActivityDate = (date) => {
+    if (!date) return 'Recently updated'
+    return new Intl.DateTimeFormat('en', {
+      month: 'short',
+      day: 'numeric',
+      year: 'numeric',
+    }).format(new Date(date))
+  }
+
   return (
-    <div className="min-h-screen bg-[#f5f5f7] text-[#1d1d1f]">
-      <header className="sticky top-0 z-20 border-b border-black/5 bg-white/80 backdrop-blur-xl">
+    <div className="page-gradient min-h-screen text-[#1d1d1f]">
+      <motion.div
+        className="fixed left-0 right-0 top-0 z-30 h-1 origin-left bg-gradient-to-r from-[#0071e3] via-[#5e8cff] to-[#7b61ff]"
+        style={{ scaleX }}
+      />
+      <header className="sticky top-0 z-20 border-b border-white/70 bg-white/70 backdrop-blur-xl">
         <nav className="mx-auto flex w-full max-w-7xl items-center justify-between px-5 py-3 md:px-8">
           <a href="#home" className="text-sm font-semibold tracking-tight text-[#1d1d1f] md:text-base">
             Dhayapulay Aditya Varun
@@ -127,67 +163,93 @@ export default function Page() {
       <main>
         <motion.section
           id="home"
-          className="mx-auto grid w-full max-w-7xl items-center gap-10 px-5 pb-16 pt-12 md:grid-cols-[1.04fr_0.96fr] md:px-8 md:pb-24 md:pt-20"
-          variants={sectionVariants}
+          className="relative mx-auto grid w-full max-w-6xl items-center gap-8 overflow-hidden px-5 py-10 md:px-8 md:py-14 lg:grid-cols-[minmax(0,1fr)_430px] lg:py-16"
+          variants={staggerVariants}
           initial="hidden"
-          whileInView="show"
-          viewport={{ once: true, amount: 0.2 }}
+          animate="show"
         >
-          <div className="space-y-7">
-            <p className="inline-flex rounded-full border border-[#0071e3]/15 bg-[#e8f3ff] px-4 py-2 text-xs font-semibold text-[#0066cc]">
+          <div className="color-field" />
+          <motion.div className="relative z-10 space-y-6 lg:col-start-1 lg:row-start-1" variants={itemVariants}>
+            <motion.p
+              className="inline-flex rounded-full border border-[#0071e3]/15 bg-[#e8f3ff]/85 px-4 py-2 text-xs font-semibold text-[#0066cc] shadow-sm backdrop-blur"
+              variants={itemVariants}
+            >
               {recruiterMode ? 'Recruiter Snapshot' : 'MS Computer Science @ CSUF'}
-            </p>
+            </motion.p>
             <div className="space-y-5">
-              <h1 className="max-w-4xl text-5xl font-semibold leading-[1.04] tracking-tight text-[#1d1d1f] md:text-7xl">
+              <motion.h1
+                className="max-w-3xl text-4xl font-semibold leading-[1.04] tracking-tight text-[#1d1d1f] md:text-6xl"
+                variants={itemVariants}
+              >
                 AI engineer building useful software with clarity and craft.
-              </h1>
-              <p className="max-w-2xl text-lg leading-8 text-[#515154] md:text-xl">
+              </motion.h1>
+              <motion.p className="max-w-2xl text-base leading-8 text-[#515154] md:text-lg" variants={itemVariants}>
                 I work across machine learning, data-driven systems, and full-stack development with a focus on
                 measurable outcomes, elegant interfaces, and production-minded execution.
-              </p>
+              </motion.p>
             </div>
-            <div className="flex flex-wrap gap-3">
-              <a href="#projects" className="rounded-full bg-[#0071e3] px-5 py-3 text-sm font-semibold text-white shadow-sm transition hover:bg-[#0077ed]">
+            <motion.div className="flex flex-wrap gap-3" variants={itemVariants}>
+              <motion.a
+                href="#projects"
+                className="rounded-full bg-[#0071e3] px-5 py-3 text-sm font-semibold text-white shadow-[0_12px_28px_rgba(0,113,227,0.24)] transition hover:bg-[#0077ed]"
+                whileHover={{ y: -2, scale: 1.02 }}
+                whileTap={{ scale: 0.98 }}
+              >
                 View Projects
-              </a>
-              <a href="#resume" className="rounded-full border border-black/10 bg-white px-5 py-3 text-sm font-semibold text-[#1d1d1f] shadow-sm transition hover:border-[#0071e3]/30 hover:text-[#0071e3]">
+              </motion.a>
+              <motion.a
+                href="#resume"
+                className="rounded-full border border-black/10 bg-white/80 px-5 py-3 text-sm font-semibold text-[#1d1d1f] shadow-sm backdrop-blur transition hover:border-[#0071e3]/30 hover:text-[#0071e3]"
+                whileHover={{ y: -2, scale: 1.02 }}
+                whileTap={{ scale: 0.98 }}
+              >
                 Resume
-              </a>
-              <a href="#contact" className="rounded-full px-5 py-3 text-sm font-semibold text-[#0066cc] transition hover:text-[#004f9f]">
+              </motion.a>
+              <motion.a
+                href="#contact"
+                className="rounded-full px-5 py-3 text-sm font-semibold text-[#0066cc] transition hover:text-[#004f9f]"
+                whileHover={{ y: -2 }}
+              >
                 Contact
-              </a>
-            </div>
-          </div>
+              </motion.a>
+            </motion.div>
+          </motion.div>
 
-          <div className="relative mx-auto w-full max-w-[520px] overflow-hidden rounded-[2rem] border border-black/10 bg-white shadow-[0_24px_80px_rgba(0,0,0,0.12)]">
-            <div className="absolute inset-x-0 top-0 h-24 bg-gradient-to-b from-[#e8f3ff] to-transparent" />
-            <div className="relative p-5">
-              <div className="rounded-[1.5rem] bg-[#f5f5f7] p-8">
-                <img
-                  src={heroImage.src}
+          <motion.div
+            className="interactive-card relative z-10 mx-auto w-full max-w-[430px] overflow-hidden rounded-[1.75rem] border border-white/80 bg-white/72 shadow-[0_24px_70px_rgba(28,43,68,0.14)] backdrop-blur lg:col-start-2 lg:row-start-1"
+            variants={cardVariants}
+            whileHover={{ y: -6, rotateX: 1.5, rotateY: -1.5 }}
+            transition={{ type: 'spring', stiffness: 180, damping: 18 }}
+          >
+            <div className="absolute inset-0 bg-[radial-gradient(circle_at_20%_0%,rgba(0,113,227,0.14),transparent_34%),radial-gradient(circle_at_90%_12%,rgba(123,97,255,0.12),transparent_32%)]" />
+            <div className="relative p-4">
+              <div className="rounded-[1.35rem] border border-white/80 bg-white/60 p-5 shadow-inner">
+                <Image
+                  src={heroImage}
                   alt="Portfolio profile illustration"
-                  className="mx-auto aspect-square w-full max-w-[340px] object-contain"
+                  className="mx-auto aspect-square w-full max-w-[280px] object-contain"
+                  priority
                 />
               </div>
-              <div className="mt-5 grid grid-cols-3 gap-3 text-center">
-                <div className="rounded-2xl bg-[#f5f5f7] px-3 py-4">
-                  <p className="text-2xl font-semibold text-[#1d1d1f]">40%</p>
-                  <p className="mt-1 text-xs text-[#6e6e73]">Accuracy lift</p>
+              <motion.div className="mt-4 grid gap-2 sm:grid-cols-3" variants={staggerVariants}>
+                <div className="rounded-2xl border border-white/80 bg-white/80 px-3 py-3">
+                  <p className="text-sm font-semibold text-[#1d1d1f]">ML Systems</p>
+                  <p className="mt-1 text-xs leading-5 text-[#6e6e73]">Applied AI workflows.</p>
                 </div>
-                <div className="rounded-2xl bg-[#f5f5f7] px-3 py-4">
-                  <p className="text-2xl font-semibold text-[#1d1d1f]">40%</p>
-                  <p className="mt-1 text-xs text-[#6e6e73]">Faster training</p>
+                <div className="rounded-2xl border border-white/80 bg-white/80 px-3 py-3">
+                  <p className="text-sm font-semibold text-[#1d1d1f]">Full Stack</p>
+                  <p className="mt-1 text-xs leading-5 text-[#6e6e73]">React, APIs, UX.</p>
                 </div>
-                <div className="rounded-2xl bg-[#f5f5f7] px-3 py-4">
-                  <p className="text-2xl font-semibold text-[#1d1d1f]">3.78</p>
-                  <p className="mt-1 text-xs text-[#6e6e73]">CSUF GPA</p>
+                <div className="rounded-2xl border border-white/80 bg-white/80 px-3 py-3">
+                  <p className="text-sm font-semibold text-[#1d1d1f]">Now Shipping</p>
+                  <p className="mt-1 text-xs leading-5 text-[#6e6e73]">Live project work.</p>
                 </div>
-              </div>
+              </motion.div>
             </div>
-          </div>
+          </motion.div>
         </motion.section>
 
-        <div className="space-y-8 bg-white py-8 md:space-y-10 md:py-12">
+        <div className="section-wash space-y-8 py-10 md:space-y-10 md:py-14">
           <motion.section
             id="about"
             className="mx-auto grid w-full max-w-7xl gap-5 px-5 md:grid-cols-[0.8fr_1.2fr] md:px-8"
@@ -202,11 +264,11 @@ export default function Page() {
                 Research depth, product sensibility.
               </h2>
             </div>
-            <div className="rounded-[1.75rem] border border-black/10 bg-[#f5f5f7] p-6 md:p-8">
+            <div className="rounded-[1.75rem] border border-white/80 bg-white/72 p-6 shadow-[0_18px_55px_rgba(28,43,68,0.08)] backdrop-blur md:p-8">
               {recruiterMode ? (
                 <div className="grid gap-3">
                   {impactHighlights.map((highlight) => (
-                    <div key={highlight} className="rounded-2xl bg-white px-4 py-3 text-sm font-medium text-[#1d1d1f] shadow-sm">
+                    <div key={highlight} className="rounded-2xl bg-[#f7faff] px-4 py-3 text-sm font-medium text-[#1d1d1f] shadow-sm">
                       {highlight}
                     </div>
                   ))}
@@ -219,8 +281,8 @@ export default function Page() {
                     40%. I enjoy turning research ideas into reliable software systems and clean user experiences.
                   </p>
                   <div className="grid gap-3 text-sm md:grid-cols-2">
-                    <p className="rounded-2xl bg-white p-4 shadow-sm"><span className="font-semibold text-[#1d1d1f]">CSUF:</span> M.S. Computer Science, GPA 3.78</p>
-                    <p className="rounded-2xl bg-white p-4 shadow-sm"><span className="font-semibold text-[#1d1d1f]">JNTUH:</span> B.Tech CSE, GPA 7.87</p>
+                    <p className="rounded-2xl bg-[#f7faff] p-4 shadow-sm"><span className="font-semibold text-[#1d1d1f]">CSUF:</span> M.S. Computer Science, GPA 3.78</p>
+                    <p className="rounded-2xl bg-[#f7faff] p-4 shadow-sm"><span className="font-semibold text-[#1d1d1f]">JNTUH:</span> B.Tech CSE, GPA 7.87</p>
                   </div>
                 </div>
               )}
@@ -244,15 +306,22 @@ export default function Page() {
                 GitHub profile
               </a>
             </div>
-            <div className="grid gap-4 md:grid-cols-2">
+            <motion.div
+              className="grid gap-4 md:grid-cols-2"
+              variants={staggerVariants}
+              initial="hidden"
+              whileInView="show"
+              viewport={{ once: true, amount: 0.18 }}
+            >
               {projects.map((project) => (
                 <motion.article
                   key={project.title}
-                  className="group rounded-[1.75rem] border border-black/10 bg-[#f5f5f7] p-6 transition hover:border-black/20 hover:bg-white hover:shadow-[0_18px_48px_rgba(0,0,0,0.08)]"
+                  className="group rounded-[1.75rem] border border-white/80 bg-white/72 p-6 shadow-[0_14px_40px_rgba(28,43,68,0.07)] backdrop-blur transition hover:border-white hover:bg-white/90 hover:shadow-[0_20px_55px_rgba(28,43,68,0.12)]"
+                  variants={cardVariants}
                   whileHover={{ y: -4 }}
                   transition={{ type: 'spring', stiffness: 280, damping: 22 }}
                 >
-                  <div className={`h-2 w-14 rounded-full ${project.accent}`} />
+                  <div className={`h-2 w-14 rounded-full transition-all duration-300 group-hover:w-20 ${project.accent}`} />
                   <h3 className="mt-6 text-2xl font-semibold tracking-tight text-[#1d1d1f]">{project.title}</h3>
                   {!recruiterMode && <p className="mt-3 text-sm leading-6 text-[#515154]">{project.description}</p>}
                   <p className="mt-5 text-sm font-semibold text-[#6e6e73]">{project.tech}</p>
@@ -261,22 +330,26 @@ export default function Page() {
                   </a>
                 </motion.article>
               ))}
-            </div>
+            </motion.div>
           </motion.section>
         </div>
 
         <motion.section
           id="activity"
-          className="mx-auto w-full max-w-7xl space-y-6 px-5 py-14 md:px-8 md:py-20"
+          className="activity-band relative mx-auto w-full max-w-7xl space-y-6 overflow-hidden px-5 py-14 md:px-8 md:py-20"
           variants={sectionVariants}
           initial="hidden"
           whileInView="show"
           viewport={{ once: true, amount: 0.2 }}
         >
+          <div className="pointer-events-none absolute right-4 top-20 h-52 w-52 rounded-full bg-[#7b61ff]/10 blur-3xl" />
           <div className="flex flex-wrap items-end justify-between gap-4">
             <div>
               <p className="text-sm font-semibold uppercase tracking-[0.18em] text-[#6e6e73]">Live Activity</p>
               <h2 className="mt-2 text-3xl font-semibold tracking-tight text-[#1d1d1f] md:text-5xl">What I&apos;m building</h2>
+              <p className="mt-4 max-w-2xl text-sm leading-6 text-[#515154]">
+                Pulled from recent public GitHub events plus direct repository commit checks, including this portfolio.
+              </p>
             </div>
             <a href={`https://github.com/${GITHUB_USERNAME}`} target="_blank" rel="noreferrer" className="text-sm font-semibold text-[#0066cc] hover:text-[#004f9f]">
               View full profile
@@ -284,7 +357,7 @@ export default function Page() {
           </div>
 
           {activityLoading && (
-            <div className="rounded-[1.75rem] border border-black/10 bg-white p-6 text-sm text-[#515154] shadow-sm">
+            <div className="rounded-[1.75rem] border border-white/80 bg-white/72 p-6 text-sm text-[#515154] shadow-sm backdrop-blur">
               Fetching latest GitHub activity...
             </div>
           )}
@@ -296,37 +369,69 @@ export default function Page() {
           )}
 
           {!activityLoading && !activityError && (
-            <div className="grid gap-4 lg:grid-cols-2">
-              <div className="rounded-[1.75rem] border border-black/10 bg-white p-6 shadow-sm">
+            <motion.div
+              className="grid gap-4 lg:grid-cols-2"
+              variants={staggerVariants}
+              initial="hidden"
+              whileInView="show"
+              viewport={{ once: true, amount: 0.18 }}
+            >
+              <motion.div
+                className="rounded-[1.75rem] border border-white/80 bg-white/72 p-6 shadow-[0_18px_55px_rgba(28,43,68,0.08)] backdrop-blur"
+                variants={cardVariants}
+              >
                 <h3 className="text-xl font-semibold tracking-tight text-[#1d1d1f]">Recent Commits</h3>
                 <div className="mt-5 space-y-3">
                   {recentCommits.length === 0 && <p className="text-sm text-[#515154]">No recent public commits found.</p>}
                   {recentCommits.map((commit) => (
-                    <a key={commit.id} href={commit.url} target="_blank" rel="noreferrer" className="block rounded-2xl border border-black/5 bg-[#f5f5f7] px-4 py-3 text-sm transition hover:border-[#0071e3]/25 hover:bg-[#e8f3ff]">
-                      <p className="font-medium text-[#1d1d1f]">{commit.message}</p>
+                    <motion.a
+                      key={commit.id}
+                      href={commit.url}
+                      target="_blank"
+                      rel="noreferrer"
+                      className="block rounded-2xl border border-black/5 bg-[#f7faff] px-4 py-3 text-sm transition hover:border-[#0071e3]/25 hover:bg-[#edf7ff]"
+                      whileHover={{ x: 4 }}
+                    >
+                      <div className="flex flex-wrap items-start justify-between gap-2">
+                        <p className="font-medium text-[#1d1d1f]">{commit.message}</p>
+                        <span className="text-xs text-[#6e6e73]">{formatActivityDate(commit.date)}</span>
+                      </div>
                       <p className="mt-1 text-xs text-[#6e6e73]">{commit.repo} - {commit.sha}</p>
-                    </a>
+                    </motion.a>
                   ))}
                 </div>
-              </div>
+              </motion.div>
 
-              <div className="rounded-[1.75rem] border border-black/10 bg-white p-6 shadow-sm">
+              <motion.div
+                className="rounded-[1.75rem] border border-white/80 bg-white/72 p-6 shadow-[0_18px_55px_rgba(28,43,68,0.08)] backdrop-blur"
+                variants={cardVariants}
+              >
                 <h3 className="text-xl font-semibold tracking-tight text-[#1d1d1f]">Active Repositories</h3>
                 <div className="mt-5 space-y-3">
                   {activeRepos.map((repo) => (
-                    <a key={repo.id} href={repo.url} target="_blank" rel="noreferrer" className="block rounded-2xl border border-black/5 bg-[#f5f5f7] px-4 py-3 transition hover:border-[#0071e3]/25 hover:bg-[#e8f3ff]">
-                      <p className="text-sm font-medium text-[#1d1d1f]">{repo.name}</p>
+                    <motion.a
+                      key={repo.id}
+                      href={repo.url}
+                      target="_blank"
+                      rel="noreferrer"
+                      className="block rounded-2xl border border-black/5 bg-[#f7faff] px-4 py-3 transition hover:border-[#0071e3]/25 hover:bg-[#edf7ff]"
+                      whileHover={{ x: 4 }}
+                    >
+                      <div className="flex flex-wrap items-start justify-between gap-2">
+                        <p className="text-sm font-medium text-[#1d1d1f]">{repo.name}</p>
+                        <span className="text-xs text-[#6e6e73]">{formatActivityDate(repo.updatedAt)}</span>
+                      </div>
                       {!recruiterMode && <p className="mt-1 text-xs text-[#6e6e73]">{repo.description}</p>}
                       <p className="mt-2 text-xs font-semibold text-[#0066cc]">{repo.language}</p>
-                    </a>
+                    </motion.a>
                   ))}
                 </div>
-              </div>
-            </div>
+              </motion.div>
+            </motion.div>
           )}
         </motion.section>
 
-        <div className="bg-white py-14 md:py-20">
+        <div className="section-wash py-14 md:py-20">
           <motion.section
             id="skills"
             className="mx-auto w-full max-w-7xl space-y-6 px-5 md:px-8"
@@ -339,20 +444,31 @@ export default function Page() {
               <p className="text-sm font-semibold uppercase tracking-[0.18em] text-[#6e6e73]">Capabilities</p>
               <h2 className="mt-2 text-3xl font-semibold tracking-tight text-[#1d1d1f] md:text-5xl">Skills</h2>
             </div>
-            <div className="grid gap-4 md:grid-cols-2">
+            <motion.div
+              className="grid gap-4 md:grid-cols-2"
+              variants={staggerVariants}
+              initial="hidden"
+              whileInView="show"
+              viewport={{ once: true, amount: 0.18 }}
+            >
               {Object.entries(skillGroups).map(([group, skills]) => (
-                <div key={group} className="rounded-[1.75rem] border border-black/10 bg-[#f5f5f7] p-6">
+                <motion.div
+                  key={group}
+                  className="rounded-[1.75rem] border border-white/80 bg-white/72 p-6 shadow-[0_14px_40px_rgba(28,43,68,0.07)] backdrop-blur"
+                  variants={cardVariants}
+                  whileHover={{ y: -3 }}
+                >
                   <h3 className="text-lg font-semibold text-[#1d1d1f]">{group}</h3>
                   <div className="mt-4 flex flex-wrap gap-2">
                     {skills.map((skill) => (
-                      <span key={skill} className="rounded-full border border-black/5 bg-white px-3 py-1.5 text-xs font-medium text-[#515154] shadow-sm">
+                      <span key={skill} className="rounded-full border border-black/5 bg-[#f7faff] px-3 py-1.5 text-xs font-medium text-[#515154] shadow-sm">
                         {skill}
                       </span>
                     ))}
                   </div>
-                </div>
+                </motion.div>
               ))}
-            </div>
+            </motion.div>
           </motion.section>
         </div>
 
@@ -364,18 +480,18 @@ export default function Page() {
           whileInView="show"
           viewport={{ once: true, amount: 0.2 }}
         >
-          <div className="rounded-[1.75rem] bg-[#1d1d1f] p-8 text-white md:p-10">
-            <p className="text-sm font-semibold uppercase tracking-[0.18em] text-white/55">Resume</p>
+          <div className="rounded-[1.75rem] border border-white/80 bg-[linear-gradient(135deg,rgba(255,255,255,0.82),rgba(232,243,255,0.82)_48%,rgba(247,242,255,0.78))] p-8 text-[#1d1d1f] shadow-[0_24px_70px_rgba(28,43,68,0.12)] backdrop-blur md:p-10">
+            <p className="text-sm font-semibold uppercase tracking-[0.18em] text-[#6e6e73]">Resume</p>
             <h2 className="mt-3 text-3xl font-semibold tracking-tight md:text-5xl">A concise view of the work.</h2>
-            <p className="mt-5 max-w-xl text-base leading-7 text-white/70">
+            <p className="mt-5 max-w-xl text-base leading-7 text-[#515154]">
               Download my latest resume for experience, education, technical skills, and project outcomes.
             </p>
-            <a href="/resume.md" download className="mt-8 inline-flex rounded-full bg-white px-5 py-3 text-sm font-semibold text-[#1d1d1f] transition hover:bg-[#f5f5f7]">
+            <a href="/resume.md" download className="mt-8 inline-flex rounded-full bg-[#0071e3] px-5 py-3 text-sm font-semibold text-white shadow-sm transition hover:bg-[#0077ed]">
               Download Resume
             </a>
           </div>
 
-          <div id="contact" className="rounded-[1.75rem] border border-black/10 bg-white p-8 shadow-sm md:p-10">
+          <div id="contact" className="rounded-[1.75rem] border border-white/80 bg-white/72 p-8 shadow-[0_18px_55px_rgba(28,43,68,0.08)] backdrop-blur md:p-10">
             <p className="text-sm font-semibold uppercase tracking-[0.18em] text-[#6e6e73]">Contact</p>
             <h2 className="mt-3 text-3xl font-semibold tracking-tight text-[#1d1d1f] md:text-5xl">Let&apos;s connect.</h2>
             <p className="mt-5 text-base leading-7 text-[#515154]">
@@ -390,7 +506,7 @@ export default function Page() {
         </motion.section>
       </main>
 
-      <footer className="border-t border-black/10 bg-white py-6 text-center text-xs text-[#6e6e73]">
+      <footer className="border-t border-white/70 bg-white/70 py-6 text-center text-xs text-[#6e6e73] backdrop-blur">
         © {new Date().getFullYear()} Dhayapulay Aditya Varun. Built with React and Tailwind CSS.
       </footer>
     </div>
