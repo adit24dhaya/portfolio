@@ -1,16 +1,58 @@
-# React + Vite
+# Dhayapulay Aditya Varun - Portfolio
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A modern portfolio website built with Next.js, Tailwind CSS, and Framer Motion to showcase projects, skills, experience, and live GitHub activity.
 
-Currently, two official plugins are available:
+## Features
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+- Responsive single-page portfolio layout
+- Recruiter Mode toggle for a concise impact-first view
+- Live GitHub activity section:
+  - recent commits
+  - active repositories
+- Smooth UI interactions and section animations with Framer Motion
+- Resume download section and direct contact links
 
-## React Compiler
+## Tech Stack
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+- Next.js (App Router)
+- React
+- Tailwind CSS
+- Framer Motion
+- GitHub API (via Next.js API route)
 
-## Expanding the ESLint configuration
+## Run Locally
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+```bash
+npm install
+npm run dev
+```
+
+Open `http://localhost:3000`
+
+## Production Build
+
+```bash
+npm run build
+npm run start
+```
+
+## Project Structure
+
+```text
+app/
+  api/activity/route.js   # Server-side GitHub activity endpoint
+  globals.css             # Global styles + Tailwind import
+  layout.jsx              # Root layout
+  page.jsx                # Main portfolio page
+public/
+  resume.md               # Downloadable resume content
+```
+
+## GitHub Activity Notes
+
+The live activity section uses `app/api/activity/route.js` and includes a fallback:
+
+- Primary: GitHub public push events
+- Fallback: recent authored commits from active repositories
+
+This helps keep activity visible even when the public events feed has no recent push events.
