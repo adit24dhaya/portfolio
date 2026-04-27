@@ -42,6 +42,14 @@ npm run build
 npm run start
 ```
 
+## Quality Check
+
+Run linting before opening a pull request:
+
+```bash
+npm run lint
+```
+
 ## Project Structure
 
 ```text
