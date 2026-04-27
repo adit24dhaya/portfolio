@@ -29,6 +29,12 @@ npm run dev
 
 Open `http://localhost:3000`
 
+Optional environment variable for higher GitHub API limits:
+
+```bash
+GITHUB_TOKEN=your_token_here
+```
+
 ## Production Build
 
 ```bash
