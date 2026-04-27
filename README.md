@@ -50,6 +50,13 @@ Run linting before opening a pull request:
 npm run lint
 ```
 
+## GitHub Automation
+
+- CI workflow runs on every push/PR to `main`
+- CI checks include `lint` and production `build`
+- Matrix validation on Node.js 20 and 22
+- Dependabot creates weekly update PRs for npm and GitHub Actions
+
 ## Project Structure
 
 ```text
