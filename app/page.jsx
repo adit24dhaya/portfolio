@@ -9,18 +9,26 @@ const GITHUB_USERNAME = 'adit24dhaya'
 
 export default function Page() {
   const [recruiterMode, setRecruiterMode] = useState(false)
+  const [contactHover, setContactHover] = useState('')
   const [recentCommits, setRecentCommits] = useState([])
   const [activeRepos, setActiveRepos] = useState([])
   const [activityLoading, setActivityLoading] = useState(true)
   const [activityError, setActivityError] = useState('')
   const { scrollYProgress } = useScroll()
   const scaleX = useSpring(scrollYProgress, { stiffness: 120, damping: 24, restDelta: 0.001 })
+  const contactBackgrounds = {
+    email: '/contact/email-bg.svg',
+    linkedin: '/contact/linkedin-bg.svg',
+    github: '/contact/github-bg.svg',
+  }
 
   const projects = [
     {
       title: 'Detect Not Hot Dogs',
       description:
         'Built a web application to classify food images with Hugging Face inference, including upload handling and confidence-based prediction output.',
+      recruiterSummary:
+        'Shows model-in-the-loop product flow: upload UX, API inference, confidence handling, and clear prediction output.',
       tech: 'Flask, Hugging Face API, JavaScript',
       github: 'https://github.com/adit24dhaya/Detect---Not-Hot-Dogs-with-hugging-face-API',
       accent: 'bg-gradient-to-r from-[#0071e3] to-[#7b61ff]',
@@ -29,6 +37,8 @@ export default function Page() {
       title: 'Caffinder',
       description:
         'Created a cafe discovery app with geolocation, Google Maps integration, and a dynamic UI to improve nearby place discovery.',
+      recruiterSummary:
+        'Demonstrates location-based product thinking with maps, nearby discovery, third-party APIs, and practical UX flow.',
       tech: 'JavaScript, Google Maps, Places API',
       github: 'https://github.com/adit24dhaya/caffinder',
       accent: 'bg-gradient-to-r from-[#2f80ed] to-[#6fc3ff]',
@@ -37,6 +47,8 @@ export default function Page() {
       title: 'CSUF Advising System',
       description:
         'Designed an advising-focused academic support platform to streamline course guidance workflows and improve student-facing usability.',
+      recruiterSummary:
+        'Relevant to student-support and workflow tools: React UI, Firebase data, and advising journeys built for usability.',
       tech: 'React, Tailwind CSS, Firebase',
       github: 'https://github.com/adit24dhaya/CSUF-Advising-System',
       accent: 'bg-gradient-to-r from-[#5e8cff] to-[#af52de]',
@@ -45,6 +57,8 @@ export default function Page() {
       title: 'Voice Assistance',
       description:
         'Built a voice-driven assistant project focused on speech input workflows and practical task automation features.',
+      recruiterSummary:
+        'Highlights Python automation, speech processing, command workflows, and assistant-style interaction patterns.',
       tech: 'Python, NLP, Speech Processing',
       github: 'https://github.com/adit24dhaya/Voice-assitance',
       accent: 'bg-gradient-to-r from-[#0071e3] to-[#b58cff]',
@@ -76,13 +90,51 @@ export default function Page() {
 
   const impactHighlights = useMemo(
     () => [
-      'Improved DRDO audio anomaly detection accuracy by 40%.',
-      'Reduced model training time by 40% with CUDA acceleration.',
-      'Built deployed ML and web projects with measurable impact.',
-      'Maintaining active public GitHub contributions and project iteration.',
+      { value: '40%', label: 'accuracy lift', detail: 'DRDO audio anomaly detection' },
+      { value: '40%', label: 'faster training', detail: 'CUDA accelerated workflows' },
+      { value: 'ROS 2', label: 'robotics stack', detail: 'multi-agent autonomy research' },
+      { value: '5+', label: 'shipped builds', detail: 'ML, web, and data projects' },
     ],
     [],
   )
+
+  const aboutStories = [
+    {
+      eyebrow: 'Current research',
+      title: 'Autonomous robotics for smart manufacturing',
+      body:
+        'Building a simulated smart assembly cell where mobile robots and a robotic arm learn to coordinate tasks, routes, and schedules using reinforcement learning.',
+      tags: ['Reinforcement Learning', 'Isaac Sim', 'ROS 2', 'Robotics'],
+    },
+    {
+      eyebrow: 'Applied ML impact',
+      title: 'Audio anomaly detection at DRDO',
+      body:
+        'Developed TensorFlow autoencoder workflows with CUDA acceleration, improving detection accuracy while cutting training time for faster experimentation.',
+      tags: ['TensorFlow', 'CUDA', 'Autoencoders'],
+    },
+  ]
+
+  const recruiterStories = [
+    {
+      eyebrow: 'Best fit',
+      title: 'AI / ML engineer roles',
+      body:
+        'Strongest match for teams building applied ML systems, data-backed products, autonomy workflows, and user-facing AI tools.',
+      tags: ['Applied ML', 'Full-stack AI', 'Autonomy'],
+    },
+    {
+      eyebrow: 'Interview hooks',
+      title: 'Research translated into software',
+      body:
+        'Good talking points include Isaac Sim research, DRDO anomaly detection, CUDA acceleration, and product-minded project delivery.',
+      tags: ['Research', 'Systems', 'Product UX'],
+    },
+  ]
+
+  const educationItems = [
+    { school: 'CSUF', detail: 'M.S. Computer Science', stat: 'GPA 3.78' },
+  ]
 
   const skillGroups = {
     Languages: ['Python', 'C++', 'Java', 'JavaScript', 'SQL', 'HTML/CSS'],
@@ -147,8 +199,9 @@ export default function Page() {
             </ul>
             <button
               type="button"
+              aria-pressed={recruiterMode}
               onClick={() => setRecruiterMode((prev) => !prev)}
-              className={`rounded-full border px-3.5 py-1.5 text-xs font-semibold transition ${
+              className={`min-w-[116px] rounded-full border px-3.5 py-1.5 text-center text-xs font-semibold transition ${
                 recruiterMode
                   ? 'border-[#0071e3] bg-[#0071e3] text-white shadow-sm'
                   : 'border-black/10 bg-white text-[#1d1d1f] shadow-sm hover:border-[#0071e3]/40 hover:text-[#0071e3]'
@@ -163,130 +216,176 @@ export default function Page() {
       <main>
         <motion.section
           id="home"
-          className="relative mx-auto grid w-full max-w-6xl items-center gap-8 overflow-hidden px-5 py-10 md:px-8 md:py-14 lg:grid-cols-[minmax(0,1fr)_430px] lg:py-16"
+          className="hero-band relative overflow-hidden"
           variants={staggerVariants}
           initial="hidden"
           animate="show"
         >
           <div className="color-field" />
-          <motion.div className="relative z-10 space-y-6 lg:col-start-1 lg:row-start-1" variants={itemVariants}>
-            <motion.p
-              className="inline-flex rounded-full border border-[#0071e3]/15 bg-[#e8f3ff]/85 px-4 py-2 text-xs font-semibold text-[#0066cc] shadow-sm backdrop-blur"
-              variants={itemVariants}
-            >
-              {recruiterMode ? 'Recruiter Snapshot' : 'MS Computer Science @ CSUF'}
-            </motion.p>
-            <div className="space-y-5">
-              <motion.h1
-                className="max-w-3xl text-4xl font-semibold leading-[1.04] tracking-tight text-[#1d1d1f] md:text-6xl"
+          <div className="relative z-10 mx-auto grid w-full max-w-7xl items-center gap-10 px-5 py-12 md:px-8 md:py-16 lg:grid-cols-[minmax(0,1fr)_460px] lg:py-20">
+            <motion.div className="space-y-6 lg:col-start-1 lg:row-start-1" variants={itemVariants}>
+              <motion.p
+                className="inline-flex rounded-full border border-[#0071e3]/15 bg-white/75 px-4 py-2 text-xs font-semibold text-[#0066cc] shadow-sm backdrop-blur"
                 variants={itemVariants}
               >
-                AI engineer building useful software with clarity and craft.
-              </motion.h1>
-              <motion.p className="max-w-2xl text-base leading-8 text-[#515154] md:text-lg" variants={itemVariants}>
-                I work across machine learning, data-driven systems, and full-stack development with a focus on
-                measurable outcomes, elegant interfaces, and production-minded execution.
+                {recruiterMode ? 'Recruiter Snapshot' : 'MS Computer Science @ CSUF'}
               </motion.p>
-            </div>
-            <motion.div className="flex flex-wrap gap-3" variants={itemVariants}>
-              <motion.a
-                href="#projects"
-                className="rounded-full bg-[#0071e3] px-5 py-3 text-sm font-semibold text-white shadow-[0_12px_28px_rgba(0,113,227,0.24)] transition hover:bg-[#0077ed]"
-                whileHover={{ y: -2, scale: 1.02 }}
-                whileTap={{ scale: 0.98 }}
-              >
-                View Projects
-              </motion.a>
-              <motion.a
-                href="#resume"
-                className="rounded-full border border-black/10 bg-white/80 px-5 py-3 text-sm font-semibold text-[#1d1d1f] shadow-sm backdrop-blur transition hover:border-[#0071e3]/30 hover:text-[#0071e3]"
-                whileHover={{ y: -2, scale: 1.02 }}
-                whileTap={{ scale: 0.98 }}
-              >
-                Resume
-              </motion.a>
-              <motion.a
-                href="#contact"
-                className="rounded-full px-5 py-3 text-sm font-semibold text-[#0066cc] transition hover:text-[#004f9f]"
-                whileHover={{ y: -2 }}
-              >
-                Contact
-              </motion.a>
-            </motion.div>
-          </motion.div>
-
-          <motion.div
-            className="interactive-card relative z-10 mx-auto w-full max-w-[430px] overflow-hidden rounded-[1.75rem] border border-white/80 bg-white/72 shadow-[0_24px_70px_rgba(28,43,68,0.14)] backdrop-blur lg:col-start-2 lg:row-start-1"
-            variants={cardVariants}
-            whileHover={{ y: -6, rotateX: 1.5, rotateY: -1.5 }}
-            transition={{ type: 'spring', stiffness: 180, damping: 18 }}
-          >
-            <div className="absolute inset-0 bg-[radial-gradient(circle_at_20%_0%,rgba(0,113,227,0.14),transparent_34%),radial-gradient(circle_at_90%_12%,rgba(123,97,255,0.12),transparent_32%)]" />
-            <div className="relative p-4">
-              <div className="rounded-[1.35rem] border border-white/80 bg-white/60 p-5 shadow-inner">
-                <Image
-                  src={heroImage}
-                  alt="Portfolio profile illustration"
-                  className="mx-auto aspect-square w-full max-w-[280px] object-contain"
-                  priority
-                />
+              <div className="space-y-5">
+                <motion.h1
+                  className="max-w-4xl text-4xl font-semibold leading-[1.03] tracking-tight text-[#1d1d1f] md:text-6xl"
+                  variants={itemVariants}
+                >
+                  AI engineer building useful software with clarity and craft.
+                </motion.h1>
+                <motion.p className="max-w-2xl text-base leading-8 text-[#515154] md:text-lg" variants={itemVariants}>
+                  I work across machine learning, data-driven systems, and full-stack development with a focus on
+                  measurable outcomes, elegant interfaces, and production-minded execution.
+                </motion.p>
               </div>
-              <motion.div className="mt-4 grid gap-2 sm:grid-cols-3" variants={staggerVariants}>
-                <div className="rounded-2xl border border-white/80 bg-white/80 px-3 py-3">
-                  <p className="text-sm font-semibold text-[#1d1d1f]">ML Systems</p>
-                  <p className="mt-1 text-xs leading-5 text-[#6e6e73]">Applied AI workflows.</p>
-                </div>
-                <div className="rounded-2xl border border-white/80 bg-white/80 px-3 py-3">
-                  <p className="text-sm font-semibold text-[#1d1d1f]">Full Stack</p>
-                  <p className="mt-1 text-xs leading-5 text-[#6e6e73]">React, APIs, UX.</p>
-                </div>
-                <div className="rounded-2xl border border-white/80 bg-white/80 px-3 py-3">
-                  <p className="text-sm font-semibold text-[#1d1d1f]">Now Shipping</p>
-                  <p className="mt-1 text-xs leading-5 text-[#6e6e73]">Live project work.</p>
-                </div>
+              <motion.div className="flex flex-wrap items-center gap-3" variants={itemVariants}>
+                <motion.a
+                  href="#projects"
+                  className="rounded-full bg-[#0071e3] px-5 py-3 text-sm font-semibold text-white shadow-[0_12px_28px_rgba(0,113,227,0.24)] transition hover:bg-[#0077ed]"
+                  whileHover={{ y: -2, scale: 1.02 }}
+                  whileTap={{ scale: 0.98 }}
+                >
+                  View Projects
+                </motion.a>
+                <motion.a
+                  href="#resume"
+                  className="rounded-full border border-black/10 bg-white/85 px-5 py-3 text-sm font-semibold text-[#1d1d1f] shadow-sm backdrop-blur transition hover:border-[#0071e3]/30 hover:text-[#0071e3]"
+                  whileHover={{ y: -2, scale: 1.02 }}
+                  whileTap={{ scale: 0.98 }}
+                >
+                  Resume
+                </motion.a>
+                <motion.a
+                  href="#contact"
+                  className="rounded-full px-5 py-3 text-sm font-semibold text-[#0066cc] transition hover:bg-white/55 hover:text-[#004f9f]"
+                  whileHover={{ y: -2 }}
+                >
+                  Contact
+                </motion.a>
               </motion.div>
-            </div>
-          </motion.div>
+            </motion.div>
+
+            <motion.div
+              className="interactive-card relative mx-auto w-full max-w-[460px] overflow-hidden rounded-2xl border border-white/90 bg-white/80 shadow-[0_24px_70px_rgba(28,43,68,0.13)] backdrop-blur lg:col-start-2 lg:row-start-1"
+              variants={cardVariants}
+              whileHover={{ y: -6, rotateX: 1.2, rotateY: -1.2 }}
+              transition={{ type: 'spring', stiffness: 180, damping: 18 }}
+            >
+              <div className="relative p-4">
+                <div className="rounded-2xl border border-[#dce8f7] bg-[linear-gradient(180deg,#fbfdff,#f5f9ff)] p-6 shadow-inner">
+                  <Image
+                    src={heroImage}
+                    alt="Portfolio profile illustration"
+                    className="mx-auto aspect-square w-full max-w-[300px] object-contain"
+                    priority
+                  />
+                </div>
+                <motion.div className="mt-4 grid gap-2 sm:grid-cols-3" variants={staggerVariants}>
+                  <div className="rounded-xl border border-black/5 bg-white/90 px-3 py-3">
+                    <p className="text-sm font-semibold text-[#1d1d1f]">ML Systems</p>
+                    <p className="mt-1 text-xs leading-5 text-[#6e6e73]">Applied AI workflows.</p>
+                  </div>
+                  <div className="rounded-xl border border-black/5 bg-white/90 px-3 py-3">
+                    <p className="text-sm font-semibold text-[#1d1d1f]">Full Stack</p>
+                    <p className="mt-1 text-xs leading-5 text-[#6e6e73]">React, APIs, UX.</p>
+                  </div>
+                  <div className="rounded-xl border border-black/5 bg-white/90 px-3 py-3">
+                    <p className="text-sm font-semibold text-[#1d1d1f]">Now Shipping</p>
+                    <p className="mt-1 text-xs leading-5 text-[#6e6e73]">Live project work.</p>
+                  </div>
+                </motion.div>
+              </div>
+            </motion.div>
+          </div>
         </motion.section>
 
-        <div className="section-wash space-y-8 py-10 md:space-y-10 md:py-14">
+        <div className="section-wash space-y-12 py-10 md:space-y-14 md:py-14">
           <motion.section
             id="about"
-            className="mx-auto grid w-full max-w-7xl gap-5 px-5 md:grid-cols-[0.8fr_1.2fr] md:px-8"
+            className="mx-auto grid w-full max-w-7xl gap-7 px-5 md:px-8 lg:grid-cols-[0.72fr_1.28fr]"
             variants={sectionVariants}
             initial="hidden"
             whileInView="show"
             viewport={{ once: true, amount: 0.2 }}
           >
-            <div>
+            <div className="self-start lg:sticky lg:top-24">
               <p className="text-sm font-semibold uppercase tracking-[0.18em] text-[#6e6e73]">About</p>
-              <h2 className="mt-3 text-3xl font-semibold tracking-tight text-[#1d1d1f] md:text-5xl">
-                Research depth, product sensibility.
+              <h2 className="mt-3 max-w-xl text-3xl font-semibold tracking-tight text-[#1d1d1f] md:text-4xl lg:text-5xl">
+                {recruiterMode ? 'Recruiter snapshot.' : 'Research depth, product sensibility.'}
               </h2>
+              <p className="mt-5 max-w-lg text-base leading-7 text-[#515154]">
+                {recruiterMode
+                  ? 'A quick read on role fit, technical strengths, and interview-ready impact across AI, ML, and full-stack product work.'
+                  : 'I build AI and autonomy systems with enough product thinking to make the work usable, legible, and ready for real workflows.'}
+              </p>
             </div>
-            <div className="rounded-[1.75rem] border border-white/80 bg-white/72 p-6 shadow-[0_18px_55px_rgba(28,43,68,0.08)] backdrop-blur md:p-8">
-              {recruiterMode ? (
-                <div className="grid gap-3">
-                  {impactHighlights.map((highlight) => (
-                    <div key={highlight} className="rounded-2xl bg-[#f7faff] px-4 py-3 text-sm font-medium text-[#1d1d1f] shadow-sm">
-                      {highlight}
+
+            <motion.div
+              className="grid gap-4 lg:grid-cols-2"
+              variants={staggerVariants}
+              initial={false}
+              animate="show"
+            >
+              {(recruiterMode ? recruiterStories : aboutStories).map((story) => (
+                <motion.article
+                  key={story.title}
+                  className="rounded-lg border border-white/80 bg-white/80 p-5 shadow-[0_14px_40px_rgba(28,43,68,0.07)] backdrop-blur transition hover:bg-white/90 md:p-6"
+                  variants={cardVariants}
+                  whileHover={{ y: -3 }}
+                >
+                  <div className="flex items-center justify-between gap-4">
+                    <p className="text-xs font-semibold uppercase tracking-[0.16em] text-[#6e6e73]">{story.eyebrow}</p>
+                    <span className="h-2 w-2 rounded-full bg-[#34c759]" />
+                  </div>
+                  <h3 className="mt-4 text-xl font-semibold tracking-tight text-[#1d1d1f] md:text-2xl">{story.title}</h3>
+                  <p className="mt-3 text-sm leading-7 text-[#515154]">{story.body}</p>
+                  <div className="mt-4 flex flex-wrap gap-2">
+                    {story.tags.map((tag) => (
+                      <span key={tag} className="rounded-full border border-[#0071e3]/10 bg-[#e8f3ff]/70 px-3 py-1 text-xs font-semibold text-[#0066cc]">
+                        {tag}
+                      </span>
+                    ))}
+                  </div>
+                </motion.article>
+              ))}
+
+              <div className="grid gap-2 sm:grid-cols-2 lg:col-span-2 xl:grid-cols-4">
+                {impactHighlights.map((highlight) => (
+                  <motion.div
+                    key={highlight.label}
+                    className="rounded-lg border border-white/80 bg-white/70 px-3 py-3 shadow-sm backdrop-blur"
+                    variants={cardVariants}
+                    whileHover={{ y: -2 }}
+                  >
+                    <p className="text-xl font-semibold tracking-tight text-[#1d1d1f]">{highlight.value}</p>
+                    <p className="mt-0.5 text-[10px] font-semibold uppercase text-[#0066cc]">{highlight.label}</p>
+                    <p className="mt-1 text-[11px] leading-4 text-[#6e6e73]">{highlight.detail}</p>
+                  </motion.div>
+                ))}
+              </div>
+
+              <motion.div
+                className="rounded-lg border border-white/80 bg-white/75 p-5 shadow-sm backdrop-blur lg:col-span-2"
+                variants={cardVariants}
+              >
+                <p className="text-xs font-semibold uppercase tracking-[0.16em] text-[#6e6e73]">Education</p>
+                <div className="mt-4 grid gap-3">
+                  {educationItems.map((item) => (
+                    <div key={item.school} className="flex items-center justify-between gap-4 rounded-lg border border-black/5 bg-[#f7faff] px-4 py-3">
+                      <div>
+                        <p className="text-sm font-semibold text-[#1d1d1f]">{item.school}</p>
+                        <p className="mt-1 text-xs text-[#6e6e73]">{item.detail}</p>
+                      </div>
+                      <p className="shrink-0 text-xs font-semibold text-[#0066cc]">{item.stat}</p>
                     </div>
                   ))}
                 </div>
-              ) : (
-                <div className="space-y-5 text-base leading-8 text-[#515154]">
-                  <p>
-                    At Research Centre Imarat (DRDO), I worked on audio anomaly detection using TensorFlow
-                    autoencoders and CUDA acceleration, improving detection accuracy and reducing training time by
-                    40%. I enjoy turning research ideas into reliable software systems and clean user experiences.
-                  </p>
-                  <div className="grid gap-3 text-sm md:grid-cols-2">
-                    <p className="rounded-2xl bg-[#f7faff] p-4 shadow-sm"><span className="font-semibold text-[#1d1d1f]">CSUF:</span> M.S. Computer Science, GPA 3.78</p>
-                    <p className="rounded-2xl bg-[#f7faff] p-4 shadow-sm"><span className="font-semibold text-[#1d1d1f]">JNTUH:</span> B.Tech CSE, GPA 7.87</p>
-                  </div>
-                </div>
-              )}
-            </div>
+              </motion.div>
+            </motion.div>
           </motion.section>
 
           <motion.section
@@ -297,14 +396,19 @@ export default function Page() {
             whileInView="show"
             viewport={{ once: true, amount: 0.2 }}
           >
-            <div className="flex flex-wrap items-end justify-between gap-4">
+            <div className="grid gap-4 border-t border-white/70 pt-10 lg:grid-cols-[0.82fr_1fr] lg:items-end">
               <div>
                 <p className="text-sm font-semibold uppercase tracking-[0.18em] text-[#6e6e73]">Selected Work</p>
                 <h2 className="mt-2 text-3xl font-semibold tracking-tight text-[#1d1d1f] md:text-5xl">Projects</h2>
               </div>
-              <a href={`https://github.com/${GITHUB_USERNAME}`} target="_blank" rel="noreferrer" className="text-sm font-semibold text-[#0066cc] hover:text-[#004f9f]">
-                GitHub profile
-              </a>
+              <div className="flex flex-wrap items-end justify-between gap-4">
+                <p className="max-w-xl text-sm leading-6 text-[#515154]">
+                  A focused set of shipped work across applied AI, full-stack tools, and user-facing engineering.
+                </p>
+                <a href={`https://github.com/${GITHUB_USERNAME}`} target="_blank" rel="noreferrer" className="rounded-full bg-white/75 px-4 py-2 text-sm font-semibold text-[#0066cc] shadow-sm transition hover:bg-white hover:text-[#004f9f]">
+                  GitHub profile
+                </a>
+              </div>
             </div>
             <motion.div
               className="grid gap-4 md:grid-cols-2"
@@ -316,18 +420,28 @@ export default function Page() {
               {projects.map((project) => (
                 <motion.article
                   key={project.title}
-                  className="group rounded-[1.75rem] border border-white/80 bg-white/72 p-6 shadow-[0_14px_40px_rgba(28,43,68,0.07)] backdrop-blur transition hover:border-white hover:bg-white/90 hover:shadow-[0_20px_55px_rgba(28,43,68,0.12)]"
+                  className="group relative flex min-h-[260px] flex-col overflow-hidden rounded-lg border border-white/80 bg-white/80 p-6 shadow-[0_14px_40px_rgba(28,43,68,0.07)] backdrop-blur transition hover:border-white hover:bg-white/95 hover:shadow-[0_20px_55px_rgba(28,43,68,0.12)]"
                   variants={cardVariants}
                   whileHover={{ y: -4 }}
                   transition={{ type: 'spring', stiffness: 280, damping: 22 }}
                 >
-                  <div className={`h-2 w-14 rounded-full transition-all duration-300 group-hover:w-20 ${project.accent}`} />
-                  <h3 className="mt-6 text-2xl font-semibold tracking-tight text-[#1d1d1f]">{project.title}</h3>
-                  {!recruiterMode && <p className="mt-3 text-sm leading-6 text-[#515154]">{project.description}</p>}
-                  <p className="mt-5 text-sm font-semibold text-[#6e6e73]">{project.tech}</p>
-                  <a href={project.github} target="_blank" rel="noreferrer" className="mt-6 inline-flex text-sm font-semibold text-[#0066cc] hover:text-[#004f9f]">
-                    View repository
-                  </a>
+                  <div className={`absolute inset-x-0 top-0 h-1 ${project.accent}`} />
+                  <h3 className="mt-2 text-2xl font-semibold tracking-tight text-[#1d1d1f]">{project.title}</h3>
+                  <p className="mt-3 text-sm leading-6 text-[#515154]">
+                    {recruiterMode ? project.recruiterSummary : project.description}
+                  </p>
+                  <div className="mt-5 flex flex-wrap gap-2">
+                    {project.tech.split(', ').map((tech) => (
+                      <span key={tech} className="rounded-full border border-black/5 bg-[#f7faff] px-3 py-1 text-xs font-semibold text-[#515154]">
+                        {tech}
+                      </span>
+                    ))}
+                  </div>
+                  <div className="mt-auto pt-6">
+                    <a href={project.github} target="_blank" rel="noreferrer" className="inline-flex text-sm font-semibold text-[#0066cc] hover:text-[#004f9f]">
+                      View repository
+                    </a>
+                  </div>
                 </motion.article>
               ))}
             </motion.div>
@@ -421,7 +535,7 @@ export default function Page() {
                         <p className="text-sm font-medium text-[#1d1d1f]">{repo.name}</p>
                         <span className="text-xs text-[#6e6e73]">{formatActivityDate(repo.updatedAt)}</span>
                       </div>
-                      {!recruiterMode && <p className="mt-1 text-xs text-[#6e6e73]">{repo.description}</p>}
+                      <p className="mt-1 text-xs text-[#6e6e73]">{repo.description}</p>
                       <p className="mt-2 text-xs font-semibold text-[#0066cc]">{repo.language}</p>
                     </motion.a>
                   ))}
@@ -491,16 +605,57 @@ export default function Page() {
             </a>
           </div>
 
-          <div id="contact" className="rounded-[1.75rem] border border-white/80 bg-white/72 p-8 shadow-[0_18px_55px_rgba(28,43,68,0.08)] backdrop-blur md:p-10">
-            <p className="text-sm font-semibold uppercase tracking-[0.18em] text-[#6e6e73]">Contact</p>
-            <h2 className="mt-3 text-3xl font-semibold tracking-tight text-[#1d1d1f] md:text-5xl">Let&apos;s connect.</h2>
-            <p className="mt-5 text-base leading-7 text-[#515154]">
-              Open to opportunities, collaborations, and project conversations.
-            </p>
-            <div className="mt-8 flex flex-wrap gap-3 text-sm font-semibold">
-              <a className="rounded-full bg-[#e8f3ff] px-4 py-2 text-[#0066cc] hover:text-[#004f9f]" href="mailto:adivd@csu.fullerton.edu">Email</a>
-              <a className="rounded-full bg-[#f5f5f7] px-4 py-2 text-[#1d1d1f] hover:text-[#0066cc]" href="https://www.linkedin.com/in/aditya-dhayapulay" target="_blank" rel="noreferrer">LinkedIn</a>
-              <a className="rounded-full bg-[#f5f5f7] px-4 py-2 text-[#1d1d1f] hover:text-[#0066cc]" href="https://github.com/adit24dhaya" target="_blank" rel="noreferrer">GitHub</a>
+          <div id="contact" className="relative overflow-hidden rounded-[1.75rem] border border-white/80 bg-white/72 p-8 shadow-[0_18px_55px_rgba(28,43,68,0.08)] backdrop-blur md:p-10">
+            <div
+              className={`pointer-events-none absolute inset-0 bg-cover bg-center transition-opacity duration-300 ${
+                contactHover ? 'opacity-25' : 'opacity-0'
+              }`}
+              style={{
+                backgroundImage: contactHover ? `url(${contactBackgrounds[contactHover]})` : 'none',
+              }}
+            />
+            <div className="relative z-10">
+              <p className="text-sm font-semibold uppercase tracking-[0.18em] text-[#6e6e73]">Contact</p>
+              <h2 className="mt-3 text-3xl font-semibold tracking-tight text-[#1d1d1f] md:text-5xl">Let&apos;s connect.</h2>
+              <p className="mt-5 text-base leading-7 text-[#515154]">
+                Open to opportunities, collaborations, and project conversations.
+              </p>
+              <div className="mt-8 flex flex-wrap gap-3 text-sm font-semibold">
+                <a
+                  className="rounded-full bg-[#e8f3ff] px-4 py-2 text-[#0066cc] hover:text-[#004f9f]"
+                  href="mailto:adivd@csu.fullerton.edu"
+                  onMouseEnter={() => setContactHover('email')}
+                  onMouseLeave={() => setContactHover('')}
+                  onFocus={() => setContactHover('email')}
+                  onBlur={() => setContactHover('')}
+                >
+                  Email
+                </a>
+                <a
+                  className="rounded-full bg-[#f5f5f7] px-4 py-2 text-[#1d1d1f] hover:text-[#0066cc]"
+                  href="https://www.linkedin.com/in/aditya-dhayapulay"
+                  target="_blank"
+                  rel="noreferrer"
+                  onMouseEnter={() => setContactHover('linkedin')}
+                  onMouseLeave={() => setContactHover('')}
+                  onFocus={() => setContactHover('linkedin')}
+                  onBlur={() => setContactHover('')}
+                >
+                  LinkedIn
+                </a>
+                <a
+                  className="rounded-full bg-[#f5f5f7] px-4 py-2 text-[#1d1d1f] hover:text-[#0066cc]"
+                  href="https://github.com/adit24dhaya"
+                  target="_blank"
+                  rel="noreferrer"
+                  onMouseEnter={() => setContactHover('github')}
+                  onMouseLeave={() => setContactHover('')}
+                  onFocus={() => setContactHover('github')}
+                  onBlur={() => setContactHover('')}
+                >
+                  GitHub
+                </a>
+              </div>
             </div>
           </div>
         </motion.section>

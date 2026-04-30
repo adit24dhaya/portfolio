@@ -20,33 +20,41 @@ body {
 
 .page-gradient {
   background:
-    linear-gradient(115deg, rgba(0, 113, 227, 0.12), transparent 28%),
-    linear-gradient(245deg, rgba(123, 97, 255, 0.12), transparent 32%),
-    linear-gradient(180deg, #fbfdff 0%, #f2f7ff 28%, #f7f4ff 54%, #f4f8ff 78%, #fbfdff 100%);
+    radial-gradient(circle at 12% 18%, rgba(0, 113, 227, 0.08), transparent 32%),
+    radial-gradient(circle at 84% 34%, rgba(123, 97, 255, 0.07), transparent 34%),
+    linear-gradient(180deg, #fbfdff 0%, #f4f8ff 32%, #f7f6ff 58%, #f7fbff 100%);
   position: relative;
+}
+
+.hero-band {
+  background:
+    linear-gradient(90deg, rgba(236, 246, 255, 0.72), rgba(248, 250, 255, 0.92) 46%, rgba(246, 248, 255, 0.72)),
+    linear-gradient(180deg, #fbfdff, #f1f7ff);
 }
 
 .section-wash {
   background:
-    linear-gradient(135deg, rgba(0, 113, 227, 0.075), transparent 36%),
-    linear-gradient(315deg, rgba(123, 97, 255, 0.07), transparent 38%),
-    linear-gradient(180deg, rgba(255, 255, 255, 0.14), rgba(239, 246, 255, 0.34), rgba(248, 245, 255, 0.22));
+    radial-gradient(circle at 12% 16%, rgba(0, 113, 227, 0.06), transparent 34%),
+    radial-gradient(circle at 86% 18%, rgba(123, 97, 255, 0.045), transparent 34%),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.22), rgba(240, 247, 255, 0.36), rgba(249, 250, 255, 0.32));
 }
 
 .activity-band {
   background:
-    linear-gradient(115deg, rgba(0, 113, 227, 0.07), transparent 34%),
-    linear-gradient(245deg, rgba(123, 97, 255, 0.08), transparent 42%);
+    radial-gradient(circle at 16% 18%, rgba(0, 113, 227, 0.06), transparent 34%),
+    radial-gradient(circle at 82% 16%, rgba(123, 97, 255, 0.055), transparent 34%),
+    linear-gradient(180deg, rgba(248, 251, 255, 0.92), rgba(246, 248, 255, 0.82));
 }
 
 .color-field {
   animation: color-drift 16s ease-in-out infinite alternate;
   background:
-    conic-gradient(from 180deg at 55% 42%, rgba(0, 113, 227, 0.14), rgba(123, 97, 255, 0.11), rgba(87, 199, 255, 0.1), rgba(0, 113, 227, 0.14)),
-    linear-gradient(180deg, rgba(255, 255, 255, 0), rgba(255, 255, 255, 0.35));
-  filter: blur(6px);
-  inset: -12%;
-  opacity: 0.72;
+    radial-gradient(circle at 28% 24%, rgba(0, 113, 227, 0.12), transparent 34%),
+    radial-gradient(circle at 72% 26%, rgba(123, 97, 255, 0.08), transparent 28%),
+    radial-gradient(circle at 45% 82%, rgba(87, 199, 255, 0.09), transparent 30%);
+  filter: blur(10px);
+  inset: -18%;
+  opacity: 0.62;
   pointer-events: none;
   position: absolute;
 }
