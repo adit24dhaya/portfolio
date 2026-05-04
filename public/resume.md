@@ -22,6 +22,15 @@ Coursework: Machine Learning, Data Mining, Data Analytics, Operating Systems, Da
 
 ## Experience
 
+### California State University, Fullerton - Fullerton, CA
+**Graduate Researcher (EG-RSCA Fellow)**  
+Feb 2026 - Present
+
+- Architected a Reinforcement Learning-enabled Smart Assembly Cell simulation for decentralized robotic manufacturing.
+- Built a multi-agent system in NVIDIA Isaac Sim coordinating TurtleBot3 AGVs and a Franka Emika Panda manipulator.
+- Implemented ROS 2 coordination policies and Bash-based orchestration for dynamic task scheduling and real-time material routing.
+- Optimized system-level KPIs including on-time delivery, robot idle time, energy consumption, and production utilization.
+
 ### Research Centre Imarat (RCI), DRDO - Hyderabad, India
 **Audio Anomaly Detection Intern**  
 Oct 2023 - Feb 2024
