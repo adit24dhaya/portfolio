@@ -14,6 +14,8 @@ export default function Page() {
   const [activeRepos, setActiveRepos] = useState([])
   const [activityLoading, setActivityLoading] = useState(true)
   const [activityError, setActivityError] = useState('')
+  const [pullRequests, setPullRequests] = useState([])
+  const [contributionsLoading, setContributionsLoading] = useState(true)
   const { scrollYProgress } = useScroll()
   const scaleX = useSpring(scrollYProgress, { stiffness: 120, damping: 24, restDelta: 0.001 })
   const contactBackgrounds = {
@@ -24,44 +26,64 @@ export default function Page() {
 
   const projects = [
     {
+      title: 'Healthcare Agent System',
+      description:
+        'Multi-agent healthcare decision-support system with RAG, risk scoring, and orchestrated workflows for clinical-style reasoning demos.',
+      recruiterSummary:
+        'Shows agent orchestration, RAG pipelines, and applied AI system design beyond a single-model notebook.',
+      tech: 'Python, RAG, Multi-agent, LLMs',
+      github: 'https://github.com/adit24dhaya/healthcare-agent-system',
+      accent: 'bg-gradient-to-r from-[#0071e3] to-[#34c759]',
+    },
+    {
+      title: 'Stock Sentiment Trading',
+      description:
+        'NLP-driven trading simulation combining news sentiment (BERT), Yahoo Finance data, and backtesting against historical performance.',
+      recruiterSummary:
+        'End-to-end data + ML pipeline: ingestion, sentiment modeling, strategy logic, and evaluation metrics.',
+      tech: 'Python, BERT, NewsAPI, yfinance',
+      github: 'https://github.com/adit24dhaya/Stock-Sentiment-Trading-with-News-Analysis',
+      accent: 'bg-gradient-to-r from-[#5e8cff] to-[#7b61ff]',
+    },
+    {
+      title: 'Audio Anomaly Detection',
+      description:
+        'TensorFlow autoencoder pipeline for industrial fan audio anomaly detection with dataset processing and model evaluation workflows.',
+      recruiterSummary:
+        'Directly tied to DRDO research themes: anomaly detection, TensorFlow, and measurable accuracy gains.',
+      tech: 'Python, TensorFlow, Jupyter',
+      github: 'https://github.com/adit24dhaya/audio_anomaly',
+      accent: 'bg-gradient-to-r from-[#ff9500] to-[#ff3b30]',
+    },
+    {
+      title: 'CSUF Advising System',
+      description:
+        'Advising-focused academic support platform to streamline course guidance workflows and improve student-facing usability.',
+      recruiterSummary:
+        'Full-stack product work: React UI, Firebase, REST APIs, and student workflow design.',
+      tech: 'Python, React, Firebase',
+      github: 'https://github.com/adit24dhaya/CSUF-Advising-System',
+      accent: 'bg-gradient-to-r from-[#5e8cff] to-[#af52de]',
+    },
+    {
       title: 'Detect Not Hot Dogs',
       description:
-        'Built a web application to classify food images with Hugging Face inference, including upload handling and confidence-based prediction output.',
+        'Web app to classify food images with Hugging Face inference, drag-and-drop upload, and confidence-based prediction output.',
       recruiterSummary:
-        'Shows model-in-the-loop product flow: upload UX, API inference, confidence handling, and clear prediction output.',
-      tech: 'Flask, Hugging Face API, JavaScript',
+        'Model-in-the-loop product: upload UX, API inference, and clear prediction presentation.',
+      tech: 'Flask, Hugging Face, JavaScript',
       github: 'https://github.com/adit24dhaya/Detect---Not-Hot-Dogs-with-hugging-face-API',
       accent: 'bg-gradient-to-r from-[#0071e3] to-[#7b61ff]',
     },
     {
       title: 'Caffinder',
       description:
-        'Created a cafe discovery app with geolocation, Google Maps integration, and a dynamic UI to improve nearby place discovery.',
+        'Cafe discovery app with geolocation, Google Maps & Places APIs, and a card-based UI for nearby place discovery.',
       recruiterSummary:
-        'Demonstrates location-based product thinking with maps, nearby discovery, third-party APIs, and practical UX flow.',
+        'Location-based product engineering with third-party APIs, caching, and responsive interaction design.',
       tech: 'JavaScript, Google Maps, Places API',
       github: 'https://github.com/adit24dhaya/caffinder',
       accent: 'bg-gradient-to-r from-[#2f80ed] to-[#6fc3ff]',
-    },
-    {
-      title: 'CSUF Advising System',
-      description:
-        'Designed an advising-focused academic support platform to streamline course guidance workflows and improve student-facing usability.',
-      recruiterSummary:
-        'Relevant to student-support and workflow tools: React UI, Firebase data, and advising journeys built for usability.',
-      tech: 'React, Tailwind CSS, Firebase',
-      github: 'https://github.com/adit24dhaya/CSUF-Advising-System',
-      accent: 'bg-gradient-to-r from-[#5e8cff] to-[#af52de]',
-    },
-    {
-      title: 'Voice Assistance',
-      description:
-        'Built a voice-driven assistant project focused on speech input workflows and practical task automation features.',
-      recruiterSummary:
-        'Highlights Python automation, speech processing, command workflows, and assistant-style interaction patterns.',
-      tech: 'Python, NLP, Speech Processing',
-      github: 'https://github.com/adit24dhaya/Voice-assitance',
-      accent: 'bg-gradient-to-r from-[#0071e3] to-[#b58cff]',
     },
   ]
 
@@ -88,12 +110,28 @@ export default function Page() {
     loadGitHubActivity()
   }, [])
 
+  useEffect(() => {
+    const loadContributions = async () => {
+      try {
+        setContributionsLoading(true)
+        const response = await fetch('/api/contributions')
+        if (!response.ok) return
+        const data = await response.json()
+        setPullRequests(data.pulls || [])
+      } finally {
+        setContributionsLoading(false)
+      }
+    }
+
+    loadContributions()
+  }, [])
+
   const impactHighlights = useMemo(
     () => [
       { value: '40%', label: 'accuracy lift', detail: 'DRDO audio anomaly detection' },
-      { value: '40%', label: 'faster training', detail: 'CUDA accelerated workflows' },
+      { value: '10+', label: 'OSS PRs', detail: 'chroma, OpenAI Agents, skorch, cleanlab' },
       { value: 'ROS 2', label: 'robotics stack', detail: 'multi-agent autonomy research' },
-      { value: '5+', label: 'shipped builds', detail: 'ML, web, and data projects' },
+      { value: '6+', label: 'active repos', detail: 'ML, agents, and full-stack builds' },
     ],
     [],
   )
@@ -133,7 +171,8 @@ export default function Page() {
   ]
 
   const educationItems = [
-    { school: 'CSUF', detail: 'M.S. Computer Science', stat: 'GPA 3.78' },
+    { school: 'CSUF', detail: 'M.S. Computer Science (Aug 2024 – Present)', stat: 'GPA 3.78' },
+    { school: 'JNTUH', detail: 'B.Tech Computer Science & Engineering', stat: 'GPA 7.87' },
   ]
 
   const skillGroups = {
@@ -193,6 +232,7 @@ export default function Page() {
             <ul className="hidden items-center gap-6 text-xs font-medium text-[#515154] md:flex">
               <li><a href="#about" className="transition hover:text-[#0071e3]">About</a></li>
               <li><a href="#projects" className="transition hover:text-[#0071e3]">Projects</a></li>
+              <li><a href="#contributions" className="transition hover:text-[#0071e3]">OSS</a></li>
               <li><a href="#activity" className="transition hover:text-[#0071e3]">Activity</a></li>
               <li><a href="#skills" className="transition hover:text-[#0071e3]">Skills</a></li>
               <li><a href="#contact" className="transition hover:text-[#0071e3]">Contact</a></li>
@@ -445,6 +485,75 @@ export default function Page() {
                 </motion.article>
               ))}
             </motion.div>
+          </motion.section>
+
+          <motion.section
+            id="contributions"
+            className="mx-auto w-full max-w-7xl space-y-6 px-5 md:px-8"
+            variants={sectionVariants}
+            initial="hidden"
+            whileInView="show"
+            viewport={{ once: true, amount: 0.2 }}
+          >
+            <div className="grid gap-4 border-t border-white/70 pt-10 lg:grid-cols-[0.82fr_1fr] lg:items-end">
+              <div>
+                <p className="text-sm font-semibold uppercase tracking-[0.18em] text-[#6e6e73]">Open Source</p>
+                <h2 className="mt-2 text-3xl font-semibold tracking-tight text-[#1d1d1f] md:text-5xl">Contributions</h2>
+              </div>
+              <p className="max-w-xl text-sm leading-6 text-[#515154]">
+                {recruiterMode
+                  ? 'Recent pull requests to major ML/Python libraries — CI, APIs, data quality, and docs.'
+                  : 'Pull requests across open-source ML and developer tooling repos, including merged work on falsify-inspect and licinexus-mcp.'}
+              </p>
+            </div>
+
+            {contributionsLoading && (
+              <div className="rounded-[1.75rem] border border-white/80 bg-white/72 p-6 text-sm text-[#515154] shadow-sm backdrop-blur">
+                Loading recent pull requests...
+              </div>
+            )}
+
+            {!contributionsLoading && (
+              <motion.div
+                className="grid gap-3 md:grid-cols-2"
+                variants={staggerVariants}
+                initial="hidden"
+                whileInView="show"
+                viewport={{ once: true, amount: 0.18 }}
+              >
+                {pullRequests.length === 0 && (
+                  <p className="text-sm text-[#515154] md:col-span-2">No public pull requests found.</p>
+                )}
+                {pullRequests.map((pr) => (
+                  <motion.a
+                    key={pr.id}
+                    href={pr.url}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="block rounded-[1.25rem] border border-white/80 bg-white/80 p-5 shadow-[0_14px_40px_rgba(28,43,68,0.07)] backdrop-blur transition hover:border-[#0071e3]/25 hover:bg-white"
+                    variants={cardVariants}
+                    whileHover={{ y: -3 }}
+                  >
+                    <div className="flex flex-wrap items-center justify-between gap-2">
+                      <span
+                        className={`rounded-full px-2.5 py-1 text-[10px] font-bold uppercase tracking-wide ${
+                          pr.state === 'merged'
+                            ? 'bg-[#e8f8ee] text-[#1f7a3f]'
+                            : pr.state === 'open'
+                              ? 'bg-[#e8f3ff] text-[#0066cc]'
+                              : 'bg-[#f5f5f7] text-[#6e6e73]'
+                        }`}
+                      >
+                        {pr.state}
+                      </span>
+                      <span className="text-xs text-[#6e6e73]">{formatActivityDate(pr.updatedAt)}</span>
+                    </div>
+                    <p className="mt-3 text-sm font-semibold leading-6 text-[#1d1d1f]">{pr.title}</p>
+                    <p className="mt-2 text-xs font-medium text-[#0066cc]">{pr.repo}</p>
+                  </motion.a>
+                ))}
+              </motion.div>
+            )}
           </motion.section>
         </div>
 

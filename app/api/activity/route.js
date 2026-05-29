@@ -1,10 +1,12 @@
 const GITHUB_USERNAME = 'adit24dhaya'
 const FEATURED_REPOS = [
+  'healthcare-agent-system',
+  'Stock-Sentiment-Trading-with-News-Analysis',
   'portfolio',
   'CSUF-Advising-System',
+  'audio_anomaly',
   'Detect---Not-Hot-Dogs-with-hugging-face-API',
   'caffinder',
-  'Voice-assitance',
 ]
 
 export async function GET() {
