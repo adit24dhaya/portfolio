@@ -1,5 +1,45 @@
 @import "tailwindcss";
 
+@custom-variant dark (&:where(.dark, .dark *));
+
+:root {
+  color-scheme: light;
+  --bg: #f6f9ff;
+  --text: #1d1d1f;
+  --text-soft: #515154;
+  --text-muted: #6e6e73;
+  --surface: rgba(255, 255, 255, 0.78);
+  --surface-strong: rgba(255, 255, 255, 0.95);
+  --border: rgba(255, 255, 255, 0.8);
+  --border-strong: #ffffff;
+  --hairline: rgba(0, 0, 0, 0.06);
+  --chip: #f7faff;
+  --chip-hover: #edf7ff;
+  --chip-accent: rgba(232, 243, 255, 0.7);
+  --accent-text: #0066cc;
+  --accent-text-strong: #004f9f;
+  --selection: #cce7ff;
+}
+
+.dark {
+  color-scheme: dark;
+  --bg: #0a0e17;
+  --text: #f4f6fb;
+  --text-soft: #b8bfcc;
+  --text-muted: #8b93a3;
+  --surface: rgba(21, 27, 42, 0.72);
+  --surface-strong: rgba(30, 38, 56, 0.92);
+  --border: rgba(255, 255, 255, 0.09);
+  --border-strong: rgba(255, 255, 255, 0.18);
+  --hairline: rgba(255, 255, 255, 0.08);
+  --chip: rgba(255, 255, 255, 0.05);
+  --chip-hover: rgba(111, 177, 255, 0.14);
+  --chip-accent: rgba(0, 113, 227, 0.18);
+  --accent-text: #6fb1ff;
+  --accent-text-strong: #a9d2ff;
+  --selection: #1d4e7a;
+}
+
 html {
   scroll-behavior: smooth;
 }
@@ -7,15 +47,16 @@ html {
 body {
   margin: 0;
   font-family: Inter, ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
-  background-color: #f6f9ff;
-  color: #1d1d1f;
+  background-color: var(--bg);
+  color: var(--text);
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
+  transition: background-color 0.4s ease, color 0.3s ease;
 }
 
 ::selection {
-  background: #cce7ff;
-  color: #1d1d1f;
+  background: var(--selection);
+  color: var(--text);
 }
 
 .page-gradient {
@@ -26,10 +67,23 @@ body {
   position: relative;
 }
 
+.dark .page-gradient {
+  background:
+    radial-gradient(circle at 12% 18%, rgba(0, 113, 227, 0.16), transparent 34%),
+    radial-gradient(circle at 84% 34%, rgba(123, 97, 255, 0.16), transparent 36%),
+    linear-gradient(180deg, #090d16 0%, #0b1120 40%, #0c0f1d 70%, #090d16 100%);
+}
+
 .hero-band {
   background:
     linear-gradient(90deg, rgba(236, 246, 255, 0.72), rgba(248, 250, 255, 0.92) 46%, rgba(246, 248, 255, 0.72)),
     linear-gradient(180deg, #fbfdff, #f1f7ff);
+}
+
+.dark .hero-band {
+  background:
+    linear-gradient(90deg, rgba(17, 24, 40, 0.6), rgba(12, 16, 28, 0.85) 46%, rgba(17, 24, 40, 0.6)),
+    linear-gradient(180deg, #0a0f1b, #0b1224);
 }
 
 .section-wash {
@@ -39,11 +93,33 @@ body {
     linear-gradient(180deg, rgba(255, 255, 255, 0.22), rgba(240, 247, 255, 0.36), rgba(249, 250, 255, 0.32));
 }
 
+.dark .section-wash {
+  background:
+    radial-gradient(circle at 12% 16%, rgba(0, 113, 227, 0.1), transparent 34%),
+    radial-gradient(circle at 86% 18%, rgba(123, 97, 255, 0.1), transparent 34%),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.015), rgba(255, 255, 255, 0.03), rgba(255, 255, 255, 0.015));
+}
+
 .activity-band {
   background:
     radial-gradient(circle at 16% 18%, rgba(0, 113, 227, 0.06), transparent 34%),
     radial-gradient(circle at 82% 16%, rgba(123, 97, 255, 0.055), transparent 34%),
     linear-gradient(180deg, rgba(248, 251, 255, 0.92), rgba(246, 248, 255, 0.82));
+}
+
+.dark .activity-band {
+  background:
+    radial-gradient(circle at 16% 18%, rgba(0, 113, 227, 0.12), transparent 34%),
+    radial-gradient(circle at 82% 16%, rgba(123, 97, 255, 0.12), transparent 34%),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.02), rgba(255, 255, 255, 0.01));
+}
+
+.hero-photo {
+  background: linear-gradient(180deg, #fbfdff, #f5f9ff);
+}
+
+.dark .hero-photo {
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.04), rgba(255, 255, 255, 0.02));
 }
 
 .color-field {
@@ -57,6 +133,10 @@ body {
   opacity: 0.62;
   pointer-events: none;
   position: absolute;
+}
+
+.dark .color-field {
+  opacity: 0.5;
 }
 
 .interactive-card {
@@ -79,6 +159,10 @@ body {
   transform: translateX(45%);
 }
 
+.dark .interactive-card::after {
+  background: linear-gradient(120deg, transparent 18%, rgba(255, 255, 255, 0.12), transparent 42%);
+}
+
 @keyframes color-drift {
   0% {
     transform: translate3d(-2%, -1%, 0) scale(1);
@@ -86,6 +170,15 @@ body {
 
   100% {
     transform: translate3d(2%, 1%, 0) scale(1.04);
+  }
+}
+
+@keyframes blob-float {
+  0% {
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+  100% {
+    transform: translate3d(14px, -22px, 0) scale(1.08);
   }
 }
 

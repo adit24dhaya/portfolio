@@ -1,10 +1,12 @@
 const GITHUB_USERNAME = 'adit24dhaya'
 const FEATURED_REPOS = [
   'healthcare-agent-system',
+  'fraud-risk-pipeline',
   'Stock-Sentiment-Trading-with-News-Analysis',
   'portfolio',
-  'CSUF-Advising-System',
   'audio_anomaly',
+  'Dog_Breed_Classification',
+  'CSUF-Advising-System',
   'Detect---Not-Hot-Dogs-with-hugging-face-API',
   'caffinder',
 ]
@@ -14,6 +16,9 @@ export async function GET() {
     const headers = {
       Accept: 'application/vnd.github+json',
       'User-Agent': 'portfolio-next-app',
+    }
+    if (process.env.GITHUB_TOKEN) {
+      headers.Authorization = `Bearer ${process.env.GITHUB_TOKEN}`
     }
 
     const [eventsRes, reposRes, featuredRepoResponses] = await Promise.all([

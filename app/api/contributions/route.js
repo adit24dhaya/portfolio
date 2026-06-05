@@ -6,6 +6,9 @@ export async function GET() {
       Accept: 'application/vnd.github+json',
       'User-Agent': 'portfolio-next-app',
     }
+    if (process.env.GITHUB_TOKEN) {
+      headers.Authorization = `Bearer ${process.env.GITHUB_TOKEN}`
+    }
 
     const response = await fetch(
       `https://api.github.com/search/issues?q=author:${GITHUB_USERNAME}+type:pr&sort=updated&order=desc&per_page=10`,

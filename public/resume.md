@@ -42,6 +42,19 @@ Oct 2023 - Feb 2024
 
 ## Projects
 
+### Real-Time Transaction Risk & Fraud Detection Pipeline
+**Python, XGBoost, SHAP, Evidently, FastAPI, Streamlit, Git**
+
+- Built a production-style fraud scoring pipeline on the IEEE-CIS dataset with XGBoost inference and cost-based decision thresholding.
+- Added Tree SHAP explainability and Evidently drift monitoring for transparent, maintainable model decisions.
+- Deployed a FastAPI scoring service and a Streamlit workbench (live on Heroku) with CI on every push.
+
+### Healthcare Agent System
+**Python, RAG, FastAPI, Streamlit, LLMs, Git**
+
+- Developed a multi-agent healthcare decision-support system with RAG retrieval, risk prediction, and SHAP explainability.
+- Exposed a FastAPI backend and a Streamlit interface (live demo) for clinical-style reasoning workflows.
+
 ### Dog Breed Classification using Deep Learning
 **Python, TensorFlow, OpenCV, Git**
 

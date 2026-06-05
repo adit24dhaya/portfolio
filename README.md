@@ -4,13 +4,19 @@ A modern portfolio website built with Next.js, Tailwind CSS, and Framer Motion t
 
 ## Features
 
-- Responsive single-page portfolio layout
+- Responsive single-page portfolio layout with a sticky scroll-spy navigation and mobile menu
+- Light / dark theme toggle with no-flash initialization and `prefers-color-scheme` default
 - Recruiter Mode toggle for a concise impact-first view
+- Animated hero with a rotating role headline and an "open to work" availability badge
+- Live GitHub stats strip (repos, stars, followers, years) with count-up animation
+- Filterable projects grid (AI / ML, Data, Full-Stack) with repository and live-demo links
 - Live GitHub activity section:
   - recent commits
   - active repositories
+- Open-source contributions feed (recent pull requests)
 - Smooth UI interactions and section animations with Framer Motion
-- Resume download section and direct contact links
+- Resume download, copy-email, social icon links, and a back-to-top control
+- SEO + Open Graph metadata
 
 ## Tech Stack
 
@@ -61,12 +67,14 @@ npm run lint
 
 ```text
 app/
-  api/activity/route.js   # Server-side GitHub activity endpoint
-  globals.css             # Global styles + Tailwind import
-  layout.jsx              # Root layout
-  page.jsx                # Main portfolio page
+  api/activity/route.js        # Server-side GitHub activity endpoint
+  api/contributions/route.js   # Recent pull requests endpoint
+  api/stats/route.js           # GitHub profile stats (repos, stars, followers)
+  globals.css                  # Global styles, theme tokens, Tailwind import
+  layout.jsx                   # Root layout + SEO metadata + theme init script
+  page.jsx                     # Main portfolio page
 public/
-  resume.md               # Downloadable resume content
+  resume.md                    # Downloadable resume content
 ```
 
 ## GitHub Activity Notes
