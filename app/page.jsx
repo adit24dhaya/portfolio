@@ -18,7 +18,8 @@ const NAV_LINKS = [
 
 const ROTATING_ROLES = [
   'AI / ML Engineer',
-  'Autonomy Researcher',
+  'Computer Vision Engineer',
+  'Robotics & Simulation Researcher',
   'Full-Stack Builder',
   'Applied ML Systems',
 ]
@@ -26,7 +27,7 @@ const ROTATING_ROLES = [
 const SOCIAL_LINKS = [
   { id: 'github', label: 'GitHub', href: `https://github.com/${GITHUB_USERNAME}` },
   { id: 'linkedin', label: 'LinkedIn', href: 'https://www.linkedin.com/in/aditya-dhayapulay' },
-  { id: 'email', label: 'Email', href: 'mailto:adivd@csu.fullerton.edu' },
+  { id: 'email', label: 'Email', href: 'mailto:dhayapulay.aditya@gmail.com' },
 ]
 
 const PROJECT_FILTERS = ['All', 'AI / ML', 'Data', 'Full-Stack']
@@ -123,12 +124,25 @@ export default function Page() {
 
   const projects = [
     {
+      title: 'PCB Defect Detection Capstone',
+      description:
+        'Six-class PCB inspection system using YOLO11l and RT-DETR-L benchmarks, delivering 98.3% precision, 98.8% recall, and 0.99 mAP50 in a live Hugging Face inspection app.',
+      recruiterSummary:
+        'Published computer-vision work: rigorous model evaluation, ONNX deployment artifacts, and a live inspection workflow with downloadable results.',
+      tech: 'Python, YOLO11, RT-DETR, OpenCV, ONNX',
+      category: 'AI / ML',
+      github: 'https://github.com/adit24dhaya/Capstone_project',
+      demo: 'https://adiivd-pcb-defect-detection.hf.space',
+      accent: 'bg-gradient-to-r from-[#7b61ff] to-[#ff9500]',
+      featured: true,
+    },
+    {
       title: 'Healthcare Agent System',
       description:
-        'Multi-agent healthcare decision-support system with RAG, risk prediction, SHAP explainability, FastAPI, and a Streamlit interface for clinical-style reasoning demos.',
+        'Four-agent healthcare decision-support platform with orchestration, retrieval, recommendations, explainability, safety guardrails, audit logging, and a Dockerized REST API.',
       recruiterSummary:
         'Shows agent orchestration, RAG pipelines, explainability, and applied AI system design beyond a single-model notebook.',
-      tech: 'Python, RAG, FastAPI, Streamlit, LLMs',
+      tech: 'Python, RAG, FastAPI, Docker, pytest',
       category: 'AI / ML',
       github: 'https://github.com/adit24dhaya/healthcare-agent-system',
       demo: 'https://healthcare-agent-system-teal.vercel.app',
@@ -151,7 +165,7 @@ export default function Page() {
     {
       title: 'Stock Sentiment Trading',
       description:
-        'NLP-driven trading simulation combining news sentiment (BERT), Yahoo Finance data, and backtesting against historical performance.',
+        'NLP-driven trading simulation combining BERT-scored financial news, Yahoo Finance data, confidence-weighted trade decisions, and historical backtesting.',
       recruiterSummary:
         'End-to-end data + ML pipeline: ingestion, sentiment modeling, strategy logic, and evaluation metrics.',
       tech: 'Python, BERT, NewsAPI, yfinance',
@@ -162,10 +176,10 @@ export default function Page() {
     {
       title: 'Audio Anomaly Detection',
       description:
-        'TensorFlow autoencoder pipeline for industrial fan audio anomaly detection using mel-spectrogram reconstruction error, with dataset processing and model evaluation workflows.',
+        'TensorFlow/Keras autoencoder pipeline for industrial fan audio anomaly detection using Librosa log-mel spectrogram features and reproducible evaluation workflows.',
       recruiterSummary:
         'Directly tied to DRDO research themes: anomaly detection, TensorFlow, and measurable accuracy gains.',
-      tech: 'Python, TensorFlow, Jupyter',
+      tech: 'Python, TensorFlow, Librosa, CUDA',
       category: 'AI / ML',
       github: 'https://github.com/adit24dhaya/audio_anomaly',
       accent: 'bg-gradient-to-r from-[#ff9500] to-[#ff3b30]',
@@ -184,21 +198,21 @@ export default function Page() {
     {
       title: 'CSUF Advising System',
       description:
-        'Advising-focused academic support platform to streamline course guidance workflows and improve student-facing usability.',
+        'Student-facing academic advising platform with a responsive React interface, Firebase-backed real-time data integration, and usability-focused workflows.',
       recruiterSummary:
         'Full-stack product work: React UI, Firebase, REST APIs, and student workflow design.',
-      tech: 'Python, React, Firebase',
+      tech: 'React, JavaScript, Tailwind CSS, Firebase',
       category: 'Full-Stack',
       github: 'https://github.com/adit24dhaya/CSUF-Advising-System',
       accent: 'bg-gradient-to-r from-[#5e8cff] to-[#af52de]',
     },
     {
-      title: 'Detect Not Hot Dogs',
+      title: 'Image Classification Web Service',
       description:
-        'Web app to classify food images with Hugging Face inference, drag-and-drop upload, and confidence-based prediction output.',
+        'Flask image-classification service with batch uploads, confidence scoring, health and metrics endpoints, image-hash caching, retry handling, pytest, and CI.',
       recruiterSummary:
         'Model-in-the-loop product: upload UX, API inference, and clear prediction presentation.',
-      tech: 'Flask, Hugging Face, JavaScript',
+      tech: 'Flask, Hugging Face, pytest, GitHub Actions',
       category: 'Full-Stack',
       github: 'https://github.com/adit24dhaya/Detect---Not-Hot-Dogs-with-hugging-face-API',
       accent: 'bg-gradient-to-r from-[#0071e3] to-[#7b61ff]',
@@ -331,9 +345,9 @@ export default function Page() {
   const impactHighlights = useMemo(
     () => [
       { value: '40%', label: 'accuracy lift', detail: 'DRDO audio anomaly detection' },
-      { value: '10+', label: 'OSS PRs', detail: 'chroma, OpenAI Agents, skorch, cleanlab' },
-      { value: 'ROS 2', label: 'robotics stack', detail: 'multi-agent autonomy research' },
-      { value: '8+', label: 'shipped projects', detail: 'ML, agents, and full-stack builds' },
+      { value: '0.99', label: 'mAP50', detail: 'PCB defect detection capstone' },
+      { value: 'ROS 2', label: 'robotics stack', detail: 'Isaac Sim smart-manufacturing research' },
+      { value: '4', label: 'AI agents', detail: 'healthcare decision-support platform' },
     ],
     [],
   )
@@ -343,15 +357,15 @@ export default function Page() {
       eyebrow: 'Current research',
       title: 'Autonomous robotics for smart manufacturing',
       body:
-        'Building a simulated smart assembly cell where mobile robots and a robotic arm learn to coordinate tasks, routes, and schedules using reinforcement learning.',
+        'Building a physics-grounded Isaac Sim smart-assembly testbed with a TurtleBot3 transporter, four Franka arms, lidar navigation, and ROS 2 coordination for manufacturing research.',
       tags: ['Reinforcement Learning', 'Isaac Sim', 'ROS 2', 'Robotics'],
     },
     {
       eyebrow: 'Applied ML impact',
-      title: 'Audio anomaly detection at DRDO',
+      title: 'Published PCB defect detection',
       body:
-        'Developed TensorFlow autoencoder workflows with CUDA acceleration, improving detection accuracy while cutting training time for faster experimentation.',
-      tags: ['TensorFlow', 'CUDA', 'Autoencoders'],
+        'First-author work accepted at ESCS\'26 / Springer, pairing a six-class YOLO11 inspection model with live annotated detections, pass/review verdicts, and exportable results.',
+      tags: ['Computer Vision', 'YOLO11', 'ONNX', 'Hugging Face'],
     },
   ]
 
@@ -373,14 +387,14 @@ export default function Page() {
   ]
 
   const educationItems = [
-    { school: 'CSUF', detail: 'M.S. Computer Science (Aug 2024 – Present)', stat: 'GPA 3.78' },
+    { school: 'CSUF', detail: 'M.S. Computer Science (Aug 2024 – Aug 2026)', stat: 'GPA 3.78' },
     { school: 'JNTUH', detail: 'B.Tech Computer Science & Engineering', stat: 'GPA 7.87' },
   ]
 
   const skillGroups = {
     Languages: ['Python', 'C++', 'Java', 'JavaScript', 'SQL', 'HTML/CSS'],
-    'ML & AI': ['PyTorch', 'TensorFlow', 'Scikit-Learn', 'Keras', 'OpenCV', 'Hugging Face', 'LangChain', 'OpenAI API'],
-    'Data & Cloud': ['MLflow', 'Apache Spark', 'Power BI', 'AWS', 'Google Cloud', 'Docker', 'Kubernetes'],
+    'ML & AI': ['PyTorch', 'TensorFlow', 'XGBoost', 'YOLO11', 'RT-DETR', 'OpenCV', 'Hugging Face', 'SHAP'],
+    'Robotics & MLOps': ['NVIDIA Isaac Sim', 'ROS 2', 'Docker', 'FastAPI', 'ONNX', 'GitHub Actions', 'Kubernetes'],
     Web: ['Flask', 'React', 'Tailwind CSS', 'REST APIs', 'Firebase', 'GitHub Actions'],
     Tools: ['Git', 'Jupyter Notebook', 'Google Colab', 'Bash', 'Jira', 'VS Code'],
   }
@@ -412,7 +426,7 @@ export default function Page() {
 
   const handleCopyEmail = async () => {
     try {
-      await navigator.clipboard.writeText('adivd@csu.fullerton.edu')
+      await navigator.clipboard.writeText('dhayapulay.aditya@gmail.com')
       setEmailCopied(true)
       setTimeout(() => setEmailCopied(false), 1800)
     } catch {}
@@ -543,7 +557,7 @@ export default function Page() {
                   Open to AI / ML & SWE roles
                 </span>
                 <span className="inline-flex rounded-full border border-[#0071e3]/15 bg-[var(--surface)] px-3 py-1.5 text-xs font-semibold text-[var(--accent-text)] shadow-sm backdrop-blur">
-                  {recruiterMode ? 'Recruiter Snapshot' : 'MS Computer Science @ CSUF'}
+                  {recruiterMode ? 'Recruiter Snapshot' : 'M.S. CS candidate @ CSUF'}
                 </span>
               </motion.div>
 
@@ -1053,7 +1067,7 @@ export default function Page() {
               <div className="mt-8 flex flex-wrap items-center gap-3 text-sm font-semibold">
                 <a
                   className="inline-flex items-center gap-2 rounded-full bg-[var(--chip-accent)] px-4 py-2 text-[var(--accent-text)] hover:text-[var(--accent-text-strong)]"
-                  href="mailto:adivd@csu.fullerton.edu"
+                  href="mailto:dhayapulay.aditya@gmail.com"
                   onMouseEnter={() => setContactHover('email')}
                   onMouseLeave={() => setContactHover('')}
                   onFocus={() => setContactHover('email')}

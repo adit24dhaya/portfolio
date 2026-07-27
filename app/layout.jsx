@@ -4,9 +4,9 @@ const SITE_URL = 'https://portfolio-jade-nine-fvlnobmi5c.vercel.app'
 
 export const metadata = {
   metadataBase: new URL(SITE_URL),
-  title: 'Dhayapulay Aditya Varun | AI / ML Engineer',
+  title: 'Dhayapulay Aditya Varun | AI / ML & Computer Vision Engineer',
   description:
-    'Aditya Dhayapulay — AI/ML engineer and CS graduate researcher building applied machine learning, autonomy, and full-stack products. Projects, open-source work, and live GitHub activity.',
+    'Aditya Dhayapulay — AI/ML engineer, computer-vision researcher, and CSUF graduate researcher building production-minded machine learning, robotics simulation, and full-stack products.',
   keywords: [
     'Aditya Dhayapulay',
     'AI Engineer',
@@ -15,6 +15,8 @@ export const metadata = {
     'CSUF',
     'Reinforcement Learning',
     'Computer Vision',
+    'NVIDIA Isaac Sim',
+    'YOLO',
     'Full Stack Developer',
   ],
   authors: [{ name: 'Dhayapulay Aditya Varun' }],
@@ -23,16 +25,16 @@ export const metadata = {
   openGraph: {
     type: 'website',
     url: SITE_URL,
-    title: 'Dhayapulay Aditya Varun | AI / ML Engineer',
+    title: 'Dhayapulay Aditya Varun | AI / ML & Computer Vision Engineer',
     description:
-      'Applied machine learning, autonomy research, and full-stack engineering — projects, open-source contributions, and live GitHub activity.',
+      'Applied machine learning, computer vision, robotics simulation, and full-stack engineering.',
     siteName: 'Aditya Dhayapulay Portfolio',
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Dhayapulay Aditya Varun | AI / ML Engineer',
+    title: 'Dhayapulay Aditya Varun | AI / ML & Computer Vision Engineer',
     description:
-      'Applied machine learning, autonomy research, and full-stack engineering.',
+      'Applied machine learning, computer vision, robotics simulation, and full-stack engineering.',
   },
   icons: {
     icon: '/favicon.svg',
