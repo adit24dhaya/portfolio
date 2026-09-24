@@ -17,11 +17,11 @@ const NAV_LINKS = [
 ]
 
 const ROTATING_ROLES = [
-  'AI / ML Engineer',
-  'Computer Vision Engineer',
-  'Robotics & Simulation Researcher',
-  'Full-Stack Builder',
-  'Applied ML Systems',
+  'Embedded Software Engineer',
+  'Robotics Software Engineer',
+  'Edge AI Engineer',
+  'NVIDIA Jetson Developer',
+  'Embedded Linux Engineer',
 ]
 
 const SOCIAL_LINKS = [
@@ -30,7 +30,7 @@ const SOCIAL_LINKS = [
   { id: 'email', label: 'Email', href: 'mailto:dhayapulay.aditya@gmail.com' },
 ]
 
-const PROJECT_FILTERS = ['All', 'AI / ML', 'Data', 'Full-Stack']
+const PROJECT_FILTERS = ['All', 'Embedded / Robotics', 'Edge AI', 'AI / ML', 'Software']
 
 const Icon = ({ name, className = 'h-5 w-5' }) => {
   const paths = {
@@ -124,16 +124,42 @@ export default function Page() {
 
   const projects = [
     {
-      title: 'PCB Defect Detection Capstone',
+      title: 'Autonomous Smart Manufacturing Digital Twin',
       description:
-        'Six-class PCB inspection system using YOLO11l and RT-DETR-L benchmarks, delivering 98.3% precision, 98.8% recall, and 0.99 mAP50 in a live Hugging Face inspection app.',
+        'Isaac Sim robotics software with ROS 2 autonomous coordination, LiDAR integration, telemetry analysis, and fault detection and recovery. Developed an RL scheduling/material-routing policy that outperformed a deterministic dispatch baseline on throughput in simulation.',
       recruiterSummary:
-        'Published computer-vision work: rigorous model evaluation, ONNX deployment artifacts, and a live inspection workflow with downloadable results.',
-      tech: 'Python, YOLO11, RT-DETR, OpenCV, ONNX',
-      category: 'AI / ML',
+        'Robotics reliability through sensor integration, system debugging, telemetry analysis, and fault recovery. An RL scheduling/material-routing policy outperformed deterministic dispatch on throughput in simulation.',
+      outcome: '62.82-minute unattended run · 10/10 orders completed · 0 failures · 40/40 accepted handoffs · 3,788 clean telemetry records',
+      tech: 'NVIDIA Isaac Sim, ROS 2, Python, Reinforcement Learning, LiDAR, Telemetry',
+      category: 'Embedded / Robotics',
+      accent: 'bg-gradient-to-r from-[#0071e3] to-[#34c759]',
+      featured: true,
+    },
+    {
+      title: 'Real-Time PCB Defect Detection for Embedded Visual Inspection',
+      description:
+        'Six-class visual inspection using YOLO11 / RT-DETR benchmarks, CUDA/GPU workflows, and ONNX export, with a live Hugging Face demo. Accepted ESCS’26 / CSCE’26 Springer paper; the edge-deployment direction targets Jetson/TensorRT.',
+      recruiterSummary:
+        'Embedded visual-inspection project combining model evaluation, CUDA/GPU workflows, ONNX export, and a live Hugging Face demo. Accepted ESCS’26 / CSCE’26 Springer paper, with Jetson/TensorRT as the edge-deployment direction.',
+      outcome: '98.3% precision · 98.8% recall · 0.99 mAP50 · ~31 ms/image · six defect classes',
+      tech: 'Python, YOLO11, RT-DETR, CUDA, OpenCV, ONNX',
+      category: 'Edge AI',
       github: 'https://github.com/adit24dhaya/Capstone_project',
       demo: 'https://adiivd-pcb-defect-detection.hf.space',
       accent: 'bg-gradient-to-r from-[#7b61ff] to-[#ff9500]',
+      featured: true,
+    },
+    {
+      title: 'Real-Time Fraud & Transaction Risk Pipeline',
+      description:
+        'Production-style transaction fraud scoring on the IEEE-CIS dataset: XGBoost inference, cost-based thresholding, Tree SHAP explainability, Evidently drift monitoring, FastAPI service, and a Streamlit workbench.',
+      recruiterSummary:
+        'End-to-end MLOps: model serving, cost-aware decisions, explainability, drift monitoring, and deployed API + UI.',
+      tech: 'Python, XGBoost, SHAP, FastAPI, Streamlit',
+      category: 'AI / ML',
+      github: 'https://github.com/adit24dhaya/fraud-risk-pipeline',
+      demo: 'https://adit-txn-risk-pipeline-ui-e2c4483417ee.herokuapp.com/',
+      accent: 'bg-gradient-to-r from-[#5e8cff] to-[#7b61ff]',
       featured: true,
     },
     {
@@ -150,17 +176,15 @@ export default function Page() {
       featured: true,
     },
     {
-      title: 'Real-Time Fraud Risk Pipeline',
+      title: 'Audio Anomaly Detection',
       description:
-        'Production-style transaction fraud scoring on the IEEE-CIS dataset: XGBoost inference, cost-based thresholding, Tree SHAP explainability, Evidently drift monitoring, FastAPI service, and a Streamlit workbench.',
+        'TensorFlow/Keras autoencoder pipeline for industrial fan audio anomaly detection using Librosa log-mel spectrogram features and reproducible evaluation workflows.',
       recruiterSummary:
-        'End-to-end MLOps: model serving, cost-aware decisions, explainability, drift monitoring, and deployed API + UI.',
-      tech: 'Python, XGBoost, SHAP, FastAPI, Streamlit',
-      category: 'Data',
-      github: 'https://github.com/adit24dhaya/fraud-risk-pipeline',
-      demo: 'https://adit-txn-risk-pipeline-ui-e2c4483417ee.herokuapp.com/',
-      accent: 'bg-gradient-to-r from-[#5e8cff] to-[#7b61ff]',
-      featured: true,
+        'Industrial monitoring with TensorFlow autoencoders, audio feature engineering, CUDA workflows, and reproducible anomaly evaluation.',
+      tech: 'Python, TensorFlow, Librosa, CUDA',
+      category: 'AI / ML',
+      github: 'https://github.com/adit24dhaya/audio_anomaly',
+      accent: 'bg-gradient-to-r from-[#ff9500] to-[#ff3b30]',
     },
     {
       title: 'Stock Sentiment Trading',
@@ -169,20 +193,9 @@ export default function Page() {
       recruiterSummary:
         'End-to-end data + ML pipeline: ingestion, sentiment modeling, strategy logic, and evaluation metrics.',
       tech: 'Python, BERT, NewsAPI, yfinance',
-      category: 'Data',
+      category: 'AI / ML',
       github: 'https://github.com/adit24dhaya/Stock-Sentiment-Trading-with-News-Analysis',
       accent: 'bg-gradient-to-r from-[#2f80ed] to-[#6fc3ff]',
-    },
-    {
-      title: 'Audio Anomaly Detection',
-      description:
-        'TensorFlow/Keras autoencoder pipeline for industrial fan audio anomaly detection using Librosa log-mel spectrogram features and reproducible evaluation workflows.',
-      recruiterSummary:
-        'Directly tied to DRDO research themes: anomaly detection, TensorFlow, and measurable accuracy gains.',
-      tech: 'Python, TensorFlow, Librosa, CUDA',
-      category: 'AI / ML',
-      github: 'https://github.com/adit24dhaya/audio_anomaly',
-      accent: 'bg-gradient-to-r from-[#ff9500] to-[#ff3b30]',
     },
     {
       title: 'Dog Breed Classification',
@@ -202,7 +215,7 @@ export default function Page() {
       recruiterSummary:
         'Full-stack product work: React UI, Firebase, REST APIs, and student workflow design.',
       tech: 'React, JavaScript, Tailwind CSS, Firebase',
-      category: 'Full-Stack',
+      category: 'Software',
       github: 'https://github.com/adit24dhaya/CSUF-Advising-System',
       accent: 'bg-gradient-to-r from-[#5e8cff] to-[#af52de]',
     },
@@ -213,7 +226,7 @@ export default function Page() {
       recruiterSummary:
         'Model-in-the-loop product: upload UX, API inference, and clear prediction presentation.',
       tech: 'Flask, Hugging Face, pytest, GitHub Actions',
-      category: 'Full-Stack',
+      category: 'Software',
       github: 'https://github.com/adit24dhaya/Detect---Not-Hot-Dogs-with-hugging-face-API',
       accent: 'bg-gradient-to-r from-[#0071e3] to-[#7b61ff]',
     },
@@ -224,7 +237,7 @@ export default function Page() {
       recruiterSummary:
         'Location-based product engineering with third-party APIs, caching, and responsive interaction design.',
       tech: 'JavaScript, Google Maps, Places API',
-      category: 'Full-Stack',
+      category: 'Software',
       github: 'https://github.com/adit24dhaya/caffinder',
       accent: 'bg-gradient-to-r from-[#2f80ed] to-[#6fc3ff]',
     },
@@ -344,59 +357,62 @@ export default function Page() {
 
   const impactHighlights = useMemo(
     () => [
-      { value: '40%', label: 'accuracy lift', detail: 'DRDO audio anomaly detection' },
-      { value: '0.99', label: 'mAP50', detail: 'PCB defect detection capstone' },
-      { value: 'ROS 2', label: 'robotics stack', detail: 'Isaac Sim smart-manufacturing research' },
-      { value: '4', label: 'AI agents', detail: 'healthcare decision-support platform' },
+      { value: '62.82 min', label: 'unattended run', detail: 'Smart manufacturing digital twin' },
+      { value: '10/10', label: 'orders completed', detail: '0 failures in the simulation run' },
+      { value: '0.99', label: 'mAP50', detail: 'Six-class PCB visual inspection' },
+      { value: '~31 ms', label: 'per image', detail: 'PCB defect detection inference' },
     ],
     [],
   )
 
   const aboutStories = [
     {
-      eyebrow: 'Current research',
-      title: 'Autonomous robotics for smart manufacturing',
+      eyebrow: 'NVIDIA',
+      title: 'Embedded Software Engineer, Robotics',
+      detail: 'Aug 2025 – Present · USA',
       body:
-        'Building a physics-grounded Isaac Sim smart-assembly testbed with a TurtleBot3 transporter, four Franka arms, lidar navigation, and ROS 2 coordination for manufacturing research.',
-      tags: ['Reinforcement Learning', 'Isaac Sim', 'ROS 2', 'Robotics'],
+        'Develop C++17 software for Jetson robotics platforms on Embedded Linux / ARM64. Integrate camera, LiDAR, and IMU sensors with ROS 2, GStreamer, CUDA, TensorRT, and DeepStream. Work across BSP integration, multithreading, IPC, debugging, performance profiling, and Python/PyTest/Bash validation in CI.',
+      tags: ['C++17', 'Embedded Linux', 'NVIDIA Jetson', 'ROS 2'],
     },
     {
-      eyebrow: 'Applied ML impact',
-      title: 'Published PCB defect detection',
+      eyebrow: 'L&T Technology Services (LTTS)',
+      title: 'Automotive Embedded Software Engineer',
+      detail: 'Jul 2022 – Jun 2024 · India',
       body:
-        'First-author work accepted at ESCS\'26 / Springer, pairing a six-class YOLO11 inspection model with live annotated detections, pass/review verdicts, and exportable results.',
-      tags: ['Computer Vision', 'YOLO11', 'ONNX', 'Hugging Face'],
+        'Developed Embedded C/C++ software for ARM Cortex platforms with FreeRTOS and AUTOSAR Classic (SWC, RTE, BSW). Worked with CAN/CAN-FD, UDS diagnostics, and SPI/I2C/UART; used GDB/JTAG, CANoe/CANalyzer, and SIL/HIL validation within MISRA C and ISO 26262-oriented development.',
+      tags: ['Embedded C/C++', 'FreeRTOS', 'AUTOSAR Classic', 'CAN / CAN-FD'],
     },
   ]
 
   const recruiterStories = [
     {
       eyebrow: 'Best fit',
-      title: 'AI / ML engineer roles',
+      title: 'Embedded Software / Robotics Engineer',
       body:
-        'Strongest match for teams building applied ML systems, data-backed products, autonomy workflows, and user-facing AI tools.',
-      tags: ['Applied ML', 'Full-stack AI', 'Autonomy'],
+        'NVIDIA Jetson robotics experience in C/C++, Embedded Linux, ROS 2, CUDA/TensorRT, sensor integration, system debugging, and performance optimization. Automotive embedded experience at L&T Technology Services spans ARM, FreeRTOS, AUTOSAR Classic, and CAN.',
+      tags: ['C/C++', 'Embedded Linux', 'Sensors', 'Automotive'],
     },
     {
       eyebrow: 'Interview hooks',
-      title: 'Research translated into software',
+      title: 'Reliability from sensors to software',
       body:
-        'Good talking points include Isaac Sim research, DRDO anomaly detection, CUDA acceleration, and product-minded project delivery.',
-      tags: ['Research', 'Systems', 'Product UX'],
+        'Discuss GDB, Valgrind, Linux perf, POSIX threads, IPC, and hardware/software integration. Supporting projects include a digital twin validated over a 62.82-minute unattended run and PCB inspection with an accepted ESCS’26 / CSCE’26 Springer paper.',
+      tags: ['System Debugging', 'Profiling', 'Validation', 'Edge AI'],
     },
   ]
 
   const educationItems = [
-    { school: 'CSUF', detail: 'M.S. Computer Science (Aug 2024 – Aug 2026)', stat: 'GPA 3.78' },
+    { school: 'California State University, Fullerton', detail: 'M.S. Computer Science · Completed · Aug 2024 – Aug 2026', stat: 'GPA 3.8 / 4.0' },
     { school: 'JNTUH', detail: 'B.Tech Computer Science & Engineering', stat: 'GPA 7.87' },
   ]
 
   const skillGroups = {
-    Languages: ['Python', 'C++', 'Java', 'JavaScript', 'SQL', 'HTML/CSS'],
-    'ML & AI': ['PyTorch', 'TensorFlow', 'XGBoost', 'YOLO11', 'RT-DETR', 'OpenCV', 'Hugging Face', 'SHAP'],
-    'Robotics & MLOps': ['NVIDIA Isaac Sim', 'ROS 2', 'Docker', 'FastAPI', 'ONNX', 'GitHub Actions', 'Kubernetes'],
-    Web: ['Flask', 'React', 'Tailwind CSS', 'REST APIs', 'Firebase', 'GitHub Actions'],
-    Tools: ['Git', 'Jupyter Notebook', 'Google Colab', 'Bash', 'Jira', 'VS Code'],
+    'Embedded / Systems': ['C', 'Embedded C', 'C++17', 'Embedded Linux', 'ARM64', 'ARM Cortex-M', 'FreeRTOS', 'POSIX Threads', 'IPC', 'Shared Memory', 'BSP', 'Device Drivers'],
+    'Robotics / Edge AI': ['NVIDIA Jetson', 'JetPack', 'ROS 2', 'CUDA', 'TensorRT', 'DeepStream', 'OpenCV', 'GStreamer', 'ONNX', 'LiDAR', 'NVIDIA Isaac Sim'],
+    Automotive: ['AUTOSAR Classic', 'CAN', 'CAN-FD', 'UDS', 'SPI', 'I2C', 'UART', 'SIL/HIL', 'MISRA C', 'ISO 26262'],
+    'Debugging / Performance': ['GDB', 'JTAG', 'Valgrind', 'Linux perf', 'Core Dumps', 'Kernel Logs', 'System Tracing', 'CANoe', 'CANalyzer'],
+    'Testing / Dev': ['Python', 'PyTest', 'Bash', 'CMake', 'Make', 'GCC', 'Git/GitHub', 'GitHub Actions', 'CI/CD', 'Docker'],
+    'AI / ML': ['PyTorch', 'TensorFlow', 'scikit-learn', 'XGBoost', 'YOLO11', 'RT-DETR', 'Reinforcement Learning', 'Hugging Face', 'SHAP', 'RAG'],
   }
 
   const sectionVariants = {
@@ -554,10 +570,10 @@ export default function Page() {
                     <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-[#34c759] opacity-75" />
                     <span className="relative inline-flex h-2 w-2 rounded-full bg-[#34c759]" />
                   </span>
-                  Open to AI / ML & SWE roles
+                  Open to Embedded, Robotics & Edge AI roles
                 </span>
                 <span className="inline-flex rounded-full border border-[#0071e3]/15 bg-[var(--surface)] px-3 py-1.5 text-xs font-semibold text-[var(--accent-text)] shadow-sm backdrop-blur">
-                  {recruiterMode ? 'Recruiter Snapshot' : 'M.S. CS candidate @ CSUF'}
+                  {recruiterMode ? 'Recruiter Snapshot' : 'M.S. Computer Science · CSUF · 2026'}
                 </span>
               </motion.div>
 
@@ -566,10 +582,10 @@ export default function Page() {
                   className="max-w-4xl text-4xl font-semibold leading-[1.03] tracking-tight text-[var(--text)] md:text-6xl"
                   variants={itemVariants}
                 >
-                  AI engineer building useful software with clarity and craft.
+                  Building reliable software where hardware, robotics, and AI meet.
                 </motion.h1>
-                <motion.div className="flex h-7 items-center text-base font-semibold text-[var(--accent-text)] md:text-lg" variants={itemVariants}>
-                  <span className="mr-2 text-[var(--text-muted)]">I work as an</span>
+                <motion.div className="flex min-h-7 flex-wrap items-center gap-x-2 text-base font-semibold text-[var(--accent-text)] md:text-lg" variants={itemVariants}>
+                  <span className="text-[var(--text-muted)]">Focus:</span>
                   <span className="relative inline-flex overflow-hidden">
                     <motion.span
                       key={roleIndex}
@@ -582,8 +598,9 @@ export default function Page() {
                   </span>
                 </motion.div>
                 <motion.p className="max-w-2xl text-base leading-8 text-[var(--text-soft)] md:text-lg" variants={itemVariants}>
-                  I work across machine learning, data-driven systems, and full-stack development with a focus on
-                  measurable outcomes, elegant interfaces, and production-minded execution.
+                  I build embedded and real-time software for robotics, drawing on experience at NVIDIA and L&amp;T
+                  Technology Services. My work connects C/C++, Embedded Linux, and sensor integration with system
+                  debugging, performance optimization, and CUDA/TensorRT edge AI.
                 </motion.p>
               </div>
 
@@ -640,16 +657,16 @@ export default function Page() {
                 </div>
                 <motion.div className="mt-4 grid gap-2 sm:grid-cols-3" variants={staggerVariants}>
                   <div className="rounded-xl border border-[var(--hairline)] bg-[var(--surface-strong)] px-3 py-3">
-                    <p className="text-sm font-semibold text-[var(--text)]">ML Systems</p>
-                    <p className="mt-1 text-xs leading-5 text-[var(--text-muted)]">Applied AI workflows.</p>
+                    <p className="text-sm font-semibold text-[var(--text)]">Embedded Systems</p>
+                    <p className="mt-1 text-xs leading-5 text-[var(--text-muted)]">C/C++, Linux, ARM</p>
                   </div>
                   <div className="rounded-xl border border-[var(--hairline)] bg-[var(--surface-strong)] px-3 py-3">
-                    <p className="text-sm font-semibold text-[var(--text)]">Full Stack</p>
-                    <p className="mt-1 text-xs leading-5 text-[var(--text-muted)]">React, APIs, UX.</p>
+                    <p className="text-sm font-semibold text-[var(--text)]">Robotics &amp; Edge AI</p>
+                    <p className="mt-1 text-xs leading-5 text-[var(--text-muted)]">ROS 2, Jetson, CUDA</p>
                   </div>
                   <div className="rounded-xl border border-[var(--hairline)] bg-[var(--surface-strong)] px-3 py-3">
-                    <p className="text-sm font-semibold text-[var(--text)]">Now Shipping</p>
-                    <p className="mt-1 text-xs leading-5 text-[var(--text-muted)]">Live project work.</p>
+                    <p className="text-sm font-semibold text-[var(--text)]">Systems Debugging</p>
+                    <p className="mt-1 text-xs leading-5 text-[var(--text-muted)]">GDB, telemetry, profiling</p>
                   </div>
                 </motion.div>
               </div>
@@ -691,12 +708,12 @@ export default function Page() {
             <div className="self-start lg:sticky lg:top-24">
               <p className="text-sm font-semibold uppercase tracking-[0.18em] text-[var(--text-muted)]">About</p>
               <h2 className="mt-3 max-w-xl text-3xl font-semibold tracking-tight text-[var(--text)] md:text-4xl lg:text-5xl">
-                {recruiterMode ? 'Recruiter snapshot.' : 'Research depth, product sensibility.'}
+                {recruiterMode ? 'Recruiter snapshot.' : 'Embedded software. Robotics. Reliability.'}
               </h2>
               <p className="mt-5 max-w-lg text-base leading-7 text-[var(--text-soft)]">
                 {recruiterMode
-                  ? 'A quick read on role fit, technical strengths, and interview-ready impact across AI, ML, and full-stack product work.'
-                  : 'I build AI and autonomy systems with enough product thinking to make the work usable, legible, and ready for real workflows.'}
+                  ? 'A quick read on embedded and robotics role fit: hardware/software integration, sensor pipelines, system debugging, and edge AI, backed by NVIDIA and LTTS experience.'
+                  : 'I am an Embedded Software Engineer working on robotics at NVIDIA, with prior automotive embedded experience at L&T Technology Services. My completed M.S. in Computer Science and projects in autonomous manufacturing and visual inspection strengthen that systems foundation with AI/ML.'}
               </p>
             </div>
 
@@ -713,6 +730,7 @@ export default function Page() {
                     <span className="h-2 w-2 rounded-full bg-[#34c759]" />
                   </div>
                   <h3 className="mt-4 text-xl font-semibold tracking-tight text-[var(--text)] md:text-2xl">{story.title}</h3>
+                  {story.detail && <p className="mt-2 text-xs font-medium text-[var(--text-muted)]">{story.detail}</p>}
                   <p className="mt-3 text-sm leading-7 text-[var(--text-soft)]">{story.body}</p>
                   <div className="mt-4 flex flex-wrap gap-2">
                     {story.tags.map((tag) => (
@@ -746,7 +764,7 @@ export default function Page() {
                 <p className="text-xs font-semibold uppercase tracking-[0.16em] text-[var(--text-muted)]">Education</p>
                 <div className="mt-4 grid gap-3">
                   {educationItems.map((item) => (
-                    <div key={item.school} className="flex items-center justify-between gap-4 rounded-lg border border-[var(--hairline)] bg-[var(--chip)] px-4 py-3">
+                    <div key={item.school} className="flex flex-wrap items-center justify-between gap-x-4 gap-y-2 rounded-lg border border-[var(--hairline)] bg-[var(--chip)] px-4 py-3">
                       <div>
                         <p className="text-sm font-semibold text-[var(--text)]">{item.school}</p>
                         <p className="mt-1 text-xs text-[var(--text-muted)]">{item.detail}</p>
@@ -765,7 +783,7 @@ export default function Page() {
             variants={sectionVariants}
             initial="hidden"
             whileInView="show"
-            viewport={{ once: true, amount: 0.15 }}
+            viewport={{ once: true, amount: 0.05 }}
           >
             <div className="grid gap-4 border-t border-[var(--border)] pt-10 lg:grid-cols-[0.82fr_1fr] lg:items-end">
               <div>
@@ -774,7 +792,7 @@ export default function Page() {
               </div>
               <div className="flex flex-wrap items-end justify-between gap-4">
                 <p className="max-w-xl text-sm leading-6 text-[var(--text-soft)]">
-                  A focused set of shipped work across applied AI, full-stack tools, and user-facing engineering.
+                  Robotics reliability and embedded visual inspection, supported by applied AI/ML and software projects.
                 </p>
                 <a href={`https://github.com/${GITHUB_USERNAME}`} target="_blank" rel="noreferrer" className="rounded-full bg-[var(--surface)] px-4 py-2 text-sm font-semibold text-[var(--accent-text)] shadow-sm transition hover:bg-[var(--surface-strong)] hover:text-[var(--accent-text-strong)]">
                   GitHub profile
@@ -788,6 +806,7 @@ export default function Page() {
                   key={filter}
                   type="button"
                   onClick={() => setProjectFilter(filter)}
+                  aria-pressed={projectFilter === filter}
                   className={`rounded-full border px-4 py-1.5 text-xs font-semibold transition ${
                     projectFilter === filter
                       ? 'border-[#0071e3] bg-[#0071e3] text-white shadow-sm'
@@ -809,8 +828,8 @@ export default function Page() {
                   transition={{ type: 'spring', stiffness: 280, damping: 22 }}
                 >
                   <div className={`absolute inset-x-0 top-0 h-1 ${project.accent}`} />
-                  <div className="flex items-start justify-between gap-3">
-                    <h3 className="mt-2 text-2xl font-semibold tracking-tight text-[var(--text)]">{project.title}</h3>
+                  <div className="flex flex-wrap items-start justify-between gap-3">
+                    <h3 className="mt-2 min-w-0 flex-1 basis-56 text-2xl font-semibold tracking-tight text-[var(--text)]">{project.title}</h3>
                     {project.featured && (
                       <span className="mt-2 inline-flex shrink-0 items-center gap-1 rounded-full bg-[var(--chip-accent)] px-2.5 py-1 text-[10px] font-bold uppercase tracking-wide text-[var(--accent-text)]">
                         <Icon name="star" className="h-3 w-3" /> Featured
@@ -820,6 +839,9 @@ export default function Page() {
                   <p className="mt-3 text-sm leading-6 text-[var(--text-soft)]">
                     {recruiterMode ? project.recruiterSummary : project.description}
                   </p>
+                  {project.outcome && (
+                    <p className="mt-3 text-sm font-semibold leading-6 text-[var(--accent-text)]">{project.outcome}</p>
+                  )}
                   <div className="mt-5 flex flex-wrap gap-2">
                     {project.tech.split(', ').map((tech) => (
                       <span key={tech} className="rounded-full border border-[var(--hairline)] bg-[var(--chip)] px-3 py-1 text-xs font-semibold text-[var(--text-soft)]">
@@ -827,16 +849,20 @@ export default function Page() {
                       </span>
                     ))}
                   </div>
-                  <div className="mt-auto flex items-center gap-4 pt-6">
-                    <a href={project.github} target="_blank" rel="noreferrer" className="inline-flex items-center gap-1 text-sm font-semibold text-[var(--accent-text)] hover:text-[var(--accent-text-strong)]">
-                      <Icon name="github" className="h-4 w-4" /> Repository
-                    </a>
-                    {project.demo && (
-                      <a href={project.demo} target="_blank" rel="noreferrer" className="inline-flex items-center gap-1 text-sm font-semibold text-[var(--accent-text)] hover:text-[var(--accent-text-strong)]">
-                        <Icon name="external" className="h-4 w-4" /> Live demo
-                      </a>
-                    )}
-                  </div>
+                  {(project.github || project.demo) && (
+                    <div className="mt-auto flex flex-wrap items-center gap-4 pt-6">
+                      {project.github && (
+                        <a href={project.github} target="_blank" rel="noreferrer" className="inline-flex items-center gap-1 text-sm font-semibold text-[var(--accent-text)] hover:text-[var(--accent-text-strong)]">
+                          <Icon name="github" className="h-4 w-4" /> Repository
+                        </a>
+                      )}
+                      {project.demo && (
+                        <a href={project.demo} target="_blank" rel="noreferrer" className="inline-flex items-center gap-1 text-sm font-semibold text-[var(--accent-text)] hover:text-[var(--accent-text-strong)]">
+                          <Icon name="external" className="h-4 w-4" /> Live demo
+                        </a>
+                      )}
+                    </div>
+                  )}
                 </motion.article>
               ))}
             </motion.div>

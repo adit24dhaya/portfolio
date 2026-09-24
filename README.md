@@ -1,6 +1,6 @@
 # Dhayapulay Aditya Varun - Portfolio
 
-A modern portfolio website built with Next.js, Tailwind CSS, and Framer Motion to showcase projects, skills, experience, and live GitHub activity.
+A portfolio for Aditya Varun Dhayapulay — Embedded Software Engineer | Robotics | Edge AI — built with Next.js, Tailwind CSS, and Framer Motion. It highlights NVIDIA and L&T Technology Services experience, robotics and embedded visual inspection projects, supporting AI/ML work, and live GitHub activity.
 
 ## Features
 
@@ -9,7 +9,7 @@ A modern portfolio website built with Next.js, Tailwind CSS, and Framer Motion t
 - Recruiter Mode toggle for a concise impact-first view
 - Animated hero with a rotating role headline and an "open to work" availability badge
 - Live GitHub stats strip (repos, stars, followers, years) with count-up animation
-- Filterable projects grid (AI / ML, Data, Full-Stack) with repository and live-demo links
+- Filterable projects grid (Embedded / Robotics, Edge AI, AI / ML, Software) with repository and live-demo links where available
 - Live GitHub activity section:
   - recent commits
   - active repositories
